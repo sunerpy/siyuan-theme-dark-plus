@@ -1,11 +1,16 @@
 # 更改日志 | CHANGE LOG
 
+## v1.2.4/2022-07-26
+
+- [v1.2.3 <=> v1.2.4](https:///github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/compare/v1.2.3...v1.2.4)
 - 使用快捷键 <kbd>Shift + Alt + B</kbd> 启动/关闭页签纵向排列功能 | Use the shortcut <kbd>Shift + Alt + B</kbd> to turn on/off the feature of tabs are arranged vertically.
 - 动态加载样式支持在其他主题调用 | Dynamic loading of style support in other themes called.
 - 移除动态加载样式文件对配置文件的引用 | Removes references to configuration files from dynamically loaded style filesRemoves references to configuration files from dynamically loaded style files.
 - 使用 `Less` 重构 `custom-type-title.css` | Refactored `custom-type-title.css` with `Less`.
 - [#90](https://github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/issues/90) 修复有序列表折叠时序号被遮挡问题 | Fixed an issue where the sequence numbers of folding ordered list were covered.
 - 修复搜索对话框中预览面板代码语言选择菜单样式异常问题 | Fixed an issue where the style of the menu of the language selection in the preview panel of the search dialog is abnormal.
+- 为浏览器中链接提供从新窗口打开功能 | Provides a function to open links in a new window in the browser.
+- 移除列表表格视图中列表块的轮廓线 | Removes the outline line of the list block in the list table view.
 
 ## v1.2.3/2022-07-18
 
