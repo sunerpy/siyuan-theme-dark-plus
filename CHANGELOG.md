@@ -1,10 +1,17 @@
 # 更改日志 | CHANGE LOG
 
+- 为 Jupyter 全局配置的 Server 字段输入框添加有效性检查 | Add a check to the Server field of the Jupyter global config to make sure the input is a valid URL.
+
+## v1.2.5/2022-08-03
+
+- [v1.2.4 <=> v1.2.5](https:///github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/compare/v1.2.4...v1.2.5)
 - [#92](https://github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/issues/92) 修复搜索历史菜单背景颜色透明问题 | Fixed an issue where the background color of the search history menu was transparent.
 - 使用 `Less` 重构 `custom-type-title.css` | Refactored `custom-type-title.css` with `Less`.
 - 使用 `Less` 重构 `custom-type-table.css` | Refactored `custom-type-table.css` with `Less`.
 - 使用 `Less` 重构 `custom-type-map.css` | Refactored `custom-type-map.css` with `Less`.
 - 使用 `Less` 重构 `custom-table-width.css` | Refactored `custom-table-width.css` with `Less`.
+- [#93](https://github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/issues/93) 修复 Monaco 编辑器编辑公式块无法保存问题 | Fixed an issue where the formula block cannot be saved in Monaco editor.
+- 使用 `Less` 重构 `custom-render-scroll.css` | Refactored `custom-render-scroll.css` with `Less`.
 
 ## v1.2.4/2022-07-26
 
