@@ -3,6 +3,7 @@
 @import (css) url(/appearance/themes/Dark+/style/module/config.css);
 @import (css) url(/widgets/custom.css);
 
+// deprecated: 使用 [data-fullwidth="true"] 判断是否开启自适应宽度
 .page-margins() {
 
     // 关闭自适应宽度后会使用 width 属性限制内容宽度
@@ -39,9 +40,9 @@
     background-color: var(--custom-editor-breadcrumb-bar-background-color);
     /* box-shadow: 0 15px 10px -10px rgba(0, 0, 0, 0.5); */
 
-    >.protyle-breadcrumb__bar {
+    .protyle-breadcrumb__bar {
 
-        >.protyle-breadcrumb__item {
+        .protyle-breadcrumb__item {
             /* 导航栏文字 */
             line-height: normal;
             border: 1px solid var(--b3-theme-on-surface-light);
@@ -69,6 +70,26 @@
 
 // 编辑区内容
 .protyle-content {
+
+    // 开启自适应宽度
+    // &[data-fullwidth="true"] {
+    //     >.protyle-background {
+    //         >.protyle-background__iconw {
+    //             /* 文档标志 */
+    //             left: var(--custom-editor-padding-left) !important;
+    //         }
+    //     }
+
+    //     >.protyle-title,
+    //     >.protyle-wysiwyg {
+    //         margin-left: var(--custom-editor-padding-left) !important;
+    //         margin-right: var(--custom-editor-padding-right) !important;
+    //         padding-left: 0 !important;
+    //         padding-right: 0 !important;
+    //     }
+    // }
+
+    // deprecated: 使用 [data-fullwidth="true"] 判断是否开启自适应宽度
     >.protyle-background {
         >.protyle-background__iconw {
 
