@@ -1,5 +1,11 @@
 # 更改日志 | CHANGE LOG
 
+- 使用 `Less` 重构 `custom-list-guides.css` | Refactored `custom-list-guides.css` with `Less`.
+- 使用 `Less` 重构 `custom-font-family.css` | Refactored `custom-font-family.css` with `Less`.
+
+## v1.2.6/2022-08-12
+
+- [v1.2.5 <=> v1.2.6](https:///github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/compare/v1.2.5...v1.2.6)
 - 为 Jupyter 全局配置的 Server 字段输入框添加有效性检查 | Add a check to the Server field of the Jupyter global config to make sure the input is a valid URL.
 - 使用 `data-fullwidth="true"` 属性判断是否启用自适应宽度 | Use the `data-fullwidth="true"` attribute to determine whether to enable adaptive width.
   - REF: [siyuan-note/siyuan: #5468](https://github.com/siyuan-note/siyuan/issues/5468)
@@ -11,6 +17,8 @@
 - [#94](https://github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/issues/94) 使用兼容方案将文本写入剪贴板 | Use the compatibility scheme to write text to the clipboard.
 - 调整面包屑样式选择器 | Adjust the style selector of the breadcrumb.
 - 使用 `Less` 重构 `custom-render-danmaku.css` | Refactored `custom-render-danmaku.css` with `Less`.
+- 为 `theme.js` 中加载的 `script` 标签设置 `defer` 属性 | Set the `defer` attribute of the `script` tag loaded in `theme.js` to `true`.
+- 使用 `Less` 重构 `custom-position.css` | Refactored `custom-position.css` with `Less`.
 
 ## v1.2.5/2022-08-03
 
