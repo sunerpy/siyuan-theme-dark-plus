@@ -1,5 +1,27 @@
 # 更改日志 | CHANGE LOG
 
+- 修复 Monaco Editor 打开本地文件路径问题 | Fixed the issue of Monaco editor open local file.
+- 新增 Monaco Editor 历史查看与差异编辑功能 | Added Monaco Editor history viewing and difference editing function.
+- 新增 Monaco Editor 标准 Markdown 历史查看与差异编辑功能 | Added Monaco Editor standard Markdown history viewing and difference editing function.
+- 快捷键配置项添加 `enable` 字段用于控制是否激活 | The hotkey item adds `enable` field to control whether it is enabled.
+- Manaco Editor 编辑 `Markdown` 时支持 `Katex` 公式自动补全 | Manaco Editor supports `Katex` formula autocomplete when editing `Markdown`.
+- Monaco Editor Katex 自动补全支持自定义 katex 宏 | Autocomplete of Manaco Editor Katex supports custom katex macros.
+
+## v1.2.8/2022-09-07
+
+- [v1.2.7 <=> v1.2.8](https:///github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/compare/v1.2.7...v1.2.8)
+- 搜索对话框搜索结果文档路径分行显示 | The search dialog box displays the document path in separate lines.
+- [#98](https://github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/issues/98) 修复替换对话框中历史替换文本列表背景颜色问题 | Fixed an issue with the background color of the list of historical replacement text in the Replace dialog box.
+- 更新 Monaco Editor 至 `v0.34.0` | Updated Monaco Editor to `v0.34.0`.
+- 修复列表内嵌入块的辅助线错位问题 | Fixed the issue of misalignment of the list guide of the embedded block in the list.
+- 移除无文本内容面包屑项与图标的间距 | Removes the spacing between the textless content breadcrumb item and the icon.
+- 只读模式兼容 `v2.1.12+` | Read-only mode compatible with `v2.1.12+`.
+- 更改文档加载时的背景颜色 | Changed the background color when the document loads.
+- 文档页签兼容 `v2.1.13+` | The Documentation tab is compatible with `v2.1.13+`.
+
+## v1.2.7/2022-08-29
+
+- [v1.2.6 <=> v1.2.7](https:///github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/compare/v1.2.6...v1.2.7)
 - 使用 `Less` 重构 `custom-list-guides.css` | Refactored `custom-list-guides.css` with `Less`.
 - 使用 `Less` 重构 `custom-font-family.css` | Refactored `custom-font-family.css` with `Less`.
 - 使用 `Less` 重构 `custom-board-kanban.css` | Refactored `custom-board-kanban.css` with `Less`.
@@ -9,6 +31,11 @@
 - [#96](https://github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/issues/96) 悬浮预览子窗口支持行内注释功能 | Added support for inline comments in the floating preview window.
 - 使用 `Less` 重构 `custom-auto-num-f.css` | Refactored `custom-auto-num-f.css` with `Less`.
 - 移除非桌面端拓展工具栏与窗口工具栏之间的分割线 | Removed the separator line between the non-desktop extension toolbar and the window toolbar.
+- 使用 `Less` 重构 `guides-list.css` | Refactored `guides-list.css` with `Less`.
+- 使用 [IFrame Player API](https://developers.google.com/youtube/iframe_api_reference) 重构 YouTube 时间戳创建功能 | Refactored YouTube timestamp creation with [IFrame Player API](https://developers.google.com/youtube/iframe_api_reference).
+- 重构 jupyter 客户端的 i18n 功能 | Refactored i18n functionality of client.
+- 新增 `完整显示文本内容` 功能 | Added the `Full Display Text Content` feature.
+- [#97](https://github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/issues/97) 修复图片自动编号功能 | Fixed the issue of the auto-numbering function of pictures.
 
 ## v1.2.6/2022-08-12
 

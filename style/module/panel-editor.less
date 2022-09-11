@@ -63,9 +63,22 @@
                     max-width: none;
                 }
             }
+
+            .protyle-breadcrumb__text {
+                &:empty {
+                    /* 无内容的面包屑项 */
+                    margin-left: 0;
+                }
+            }
         }
     }
 
+}
+
+// 加载中
+// .fn__loading
+.wysiwygLoading {
+    background-color: var(--custom-scrim-background-color) !important;
 }
 
 // 编辑区内容

@@ -6,6 +6,8 @@ import {
     putFile,
 } from './../utils/api.js';
 
+const THEME_PATHNAME = "/appearance/themes/Dark+";
+
 export var config = {
     token: '', // API token, 无需填写
     custom: {
@@ -21,6 +23,7 @@ export var config = {
             fontsize: /(?<=\.b3-typography|protyle-wysiwyg|protyle-title\s*\{\s*font-size\s*:\s*)(\d+)(?=px(?:\s+\!important)?(?:\s*;|\}))/,
             winpath: /^\/\w\:\/.*$/, // Windows 路径正则表达式
             inboxid: /^\d{13}$/, // 收集箱 ID 正则表达式
+            historypath: /^(?:.*[\/\\]history[\/\\].+[\/\\])(?:\d{14}\-[0-9a-z]{7}[\/\\])+(\d{14}\-[0-9a-z]{7})\.sy$/, // 历史文档路径
         },
         messages: {
             // 消息提示
@@ -76,6 +79,29 @@ export var config = {
             save: {
                 enable: false, // 是否启用保存自定义样式
             },
+            itemtext: {
+                enable: true, // 是否完整显示文本内容
+                toolbar: {
+                    enable: true,
+                    display: true,
+                    id: 'toolbar-theme-style-itemtext',
+                    label: {
+                        zh_CN: '完整显示文本内容',
+                        other: 'Full Display Text Content',
+                    },
+                    icon: '#iconParagraph',
+                    index: -8,
+                },
+                elements: {
+                    itemtext: {
+                        enable: true,
+                        style: {
+                            id: 'theme-style-list-item-text-style',
+                            href: `${THEME_PATHNAME}/style/dynamic-module/list-item-text.css`, // 样式文件 URL
+                        },
+                    },
+                },
+            },
             tabbar: {
                 enable: true, // 是否启用纵向选项卡
                 toolbar: { // 菜单栏
@@ -95,7 +121,7 @@ export var config = {
                         enable: true,
                         style: {
                             id: 'theme-style-tab-bar-vertical-style',
-                            href: '/appearance/themes/Dark+/style/dynamic-module/tab-bar-vertical.css', // 样式文件 URL
+                            href: `${THEME_PATHNAME}/style/dynamic-module/tab-bar-vertical.css`, // 样式文件 URL
                         },
                     },
                 },
@@ -121,7 +147,7 @@ export var config = {
                         enable: true,
                         style: {
                             id: 'theme-style-guides-elements-list-style',
-                            href: '/appearance/themes/Dark+/style/dynamic-module/guides-list.css', // 样式文件 URL
+                            href: `${THEME_PATHNAME}/style/dynamic-module/guides-list.css`, // 样式文件 URL
                         },
                     },
                 },
@@ -147,7 +173,7 @@ export var config = {
                         enable: true,
                         style: {
                             id: 'theme-style-mark-elements-display-style',
-                            href: '/appearance/themes/Dark+/style/dynamic-module/mark-display.css', // 样式文件 URL
+                            href: `${THEME_PATHNAME}/style/dynamic-module/mark-display.css`, // 样式文件 URL
                         },
                     },
                 },
@@ -176,6 +202,11 @@ export var config = {
         timestamp: {
             // 视频/音频时间戳
             enable: true, // 是否启用时间戳
+            youtube: { // YouTube 时间戳相关配置
+                // iframe_api: "https://www.youtube.com/iframe_api", // API 工具
+                iframe_api: `${THEME_PATHNAME}/static/youtube/iframe_api.js`, // API 工具
+                polling: 500, // 轮询时间(单位: ms)
+            },
             jump: {
                 enable: true, // 是否启用跳转
             },
@@ -543,30 +574,30 @@ export var config = {
                     random: true, // 是否随机选择自定义背景图片
                     default: false, // 是否默认使用自定义背景图片
                     light: [ // 自定义亮色背景图片 URL 列表
-                        '/appearance/themes/Dark+/image/light/background (01).jpeg',
-                        '/appearance/themes/Dark+/image/light/background (02).jpeg',
-                        '/appearance/themes/Dark+/image/light/background (03).jpeg',
-                        '/appearance/themes/Dark+/image/light/background (04).jpeg',
-                        '/appearance/themes/Dark+/image/light/background (05).jpeg',
-                        '/appearance/themes/Dark+/image/light/background (06).jpeg',
-                        '/appearance/themes/Dark+/image/light/background (07).jpeg',
-                        '/appearance/themes/Dark+/image/light/background (08).jpeg',
-                        '/appearance/themes/Dark+/image/light/background (09).jpeg',
-                        '/appearance/themes/Dark+/image/light/background (10).jpeg',
+                        `${THEME_PATHNAME}/image/light/background (01).jpeg`,
+                        `${THEME_PATHNAME}/image/light/background (02).jpeg`,
+                        `${THEME_PATHNAME}/image/light/background (03).jpeg`,
+                        `${THEME_PATHNAME}/image/light/background (04).jpeg`,
+                        `${THEME_PATHNAME}/image/light/background (05).jpeg`,
+                        `${THEME_PATHNAME}/image/light/background (06).jpeg`,
+                        `${THEME_PATHNAME}/image/light/background (07).jpeg`,
+                        `${THEME_PATHNAME}/image/light/background (08).jpeg`,
+                        `${THEME_PATHNAME}/image/light/background (09).jpeg`,
+                        `${THEME_PATHNAME}/image/light/background (10).jpeg`,
                     ],
                     dark: [ // 自定义暗色背景图片 URL 列表
-                        '/appearance/themes/Dark+/image/background (01).jpg',
-                        '/appearance/themes/Dark+/image/background (02).jpg',
-                        '/appearance/themes/Dark+/image/background (03).jpg',
-                        '/appearance/themes/Dark+/image/background (04).jpg',
-                        '/appearance/themes/Dark+/image/background (05).jpg',
-                        '/appearance/themes/Dark+/image/background (06).jpg',
-                        '/appearance/themes/Dark+/image/background (07).jpg',
-                        '/appearance/themes/Dark+/image/background (08).jpg',
-                        '/appearance/themes/Dark+/image/background (09).jpg',
-                        '/appearance/themes/Dark+/image/background (10).jpg',
-                        '/appearance/themes/Dark+/image/background (11).jpg',
-                        '/appearance/themes/Dark+/image/background (12).jpg',
+                        `${THEME_PATHNAME}/image/background (01).jpg`,
+                        `${THEME_PATHNAME}/image/background (02).jpg`,
+                        `${THEME_PATHNAME}/image/background (03).jpg`,
+                        `${THEME_PATHNAME}/image/background (04).jpg`,
+                        `${THEME_PATHNAME}/image/background (05).jpg`,
+                        `${THEME_PATHNAME}/image/background (06).jpg`,
+                        `${THEME_PATHNAME}/image/background (07).jpg`,
+                        `${THEME_PATHNAME}/image/background (08).jpg`,
+                        `${THEME_PATHNAME}/image/background (09).jpg`,
+                        `${THEME_PATHNAME}/image/background (10).jpg`,
+                        `${THEME_PATHNAME}/image/background (11).jpg`,
+                        `${THEME_PATHNAME}/image/background (12).jpg`,
                     ],
                 },
             },
@@ -743,11 +774,11 @@ export var config = {
                     },
                     path: {
                         // 路径
-                        index: '/appearance/themes/Dark+/app/editor/', // 编辑器路径
+                        index: `${THEME_PATHNAME}/app/editor/`, // 编辑器路径
                         temp: {
                             // 临时文件路径
                             relative: '/temp/theme/editor/', // 临时文件相对路径
-                            absolute: `${window.siyuan.config.system.workspaceDir}temp/theme/editor/`.replaceAll('\\', '/').replaceAll('//', '/'), // 临时文件绝对路径
+                            absolute: `${window.siyuan.config.system.workspaceDir}/temp/theme/editor/`.replaceAll('\\', '/').replaceAll('//', '/'), // 临时文件绝对路径
                         },
                     },
                     kramdown: {
@@ -796,7 +827,7 @@ export var config = {
                         other: 'Record Browsing Location',
                     },
                     icon: '#iconBookmark',
-                    index: -9,
+                    index: -10,
                 },
             },
             clear: {
@@ -862,7 +893,7 @@ export var config = {
                         other: 'Block Menu Enhancements',
                     },
                     icon: '#iconMenu',
-                    index: -8,
+                    index: -9,
                 },
                 items: [ // 块菜单项
                     { // 常用字体设置
@@ -1008,7 +1039,7 @@ export var config = {
                                         {
                                             type: 'window-open',
                                             params: {
-                                                href: '/appearance/themes/Dark+/app/jupyter/settings-global.html',
+                                                href: `${THEME_PATHNAME}/app/jupyter/settings-global.html`,
                                                 urlParams: { lang: window.theme.languageMode },
                                             },
                                         },
@@ -1031,7 +1062,7 @@ export var config = {
                                         {
                                             type: 'window-open',
                                             params: {
-                                                href: '/appearance/themes/Dark+/app/jupyter/settings-document.html',
+                                                href: `${THEME_PATHNAME}/app/jupyter/settings-document.html`,
                                                 urlParams: { lang: window.theme.languageMode },
                                             },
                                         },
@@ -2401,6 +2432,7 @@ export var config = {
             style: {
                 render: {
                     // 渲染(Ctrl + F1)
+                    enable: true,
                     CtrlCmd: true,
                     WinCtrl: false,
                     Shift: false,
@@ -2408,7 +2440,8 @@ export var config = {
                     key: 'F1',
                 },
                 tabbar: {
-                    // 列表辅助线样式(Shift + Alt + B)
+                    // 纵向排列选项卡(Shift + Alt + B)
+                    enable: true,
                     CtrlCmd: false,
                     WinCtrl: false,
                     Shift: true,
@@ -2417,6 +2450,7 @@ export var config = {
                 },
                 guides: {
                     // 列表辅助线样式(Shift + Alt + G)
+                    enable: true,
                     CtrlCmd: false,
                     WinCtrl: false,
                     Shift: true,
@@ -2425,6 +2459,7 @@ export var config = {
                 },
                 mark: {
                     // 标记文本显示(Shift + Alt + E)
+                    enable: true,
                     CtrlCmd: false,
                     WinCtrl: false,
                     Shift: true,
@@ -2435,6 +2470,7 @@ export var config = {
             timestamp: {
                 jump: {
                     // 跳转到指定时间点(Ctrl + 单击)
+                    enable: true,
                     CtrlCmd: true,
                     WinCtrl: false,
                     Shift: false,
@@ -2443,6 +2479,7 @@ export var config = {
                 },
                 create: {
                     // 新建时间戳(Ctrl + 鼠标中键)
+                    enable: true,
                     CtrlCmd: true,
                     WinCtrl: false,
                     Shift: false,
@@ -2453,6 +2490,7 @@ export var config = {
             blockattrs: {
                 set: {
                     // 设置块属性(Ctrl + 鼠标中键)
+                    enable: true,
                     CtrlCmd: true,
                     WinCtrl: false,
                     Shift: false,
@@ -2463,6 +2501,7 @@ export var config = {
             reload: {
                 window: {
                     // 刷新当前窗口(Ctrl + F5)
+                    enable: true,
                     CtrlCmd: true,
                     WinCtrl: false,
                     Shift: false,
@@ -2471,6 +2510,7 @@ export var config = {
                 },
                 iframe: {
                     // 刷新 iframe 块(Ctrl + 单击)
+                    enable: true,
                     CtrlCmd: true,
                     WinCtrl: false,
                     Shift: false,
@@ -2481,6 +2521,7 @@ export var config = {
             doc: {
                 copy: {
                     // 复制当前文档全文(Shift + Alt + C)
+                    enable: true,
                     CtrlCmd: false,
                     WinCtrl: false,
                     Shift: true,
@@ -2489,6 +2530,7 @@ export var config = {
                 },
                 delete: {
                     // 删除当前文档全文(Shift + Alt + D)
+                    enable: true,
                     CtrlCmd: false,
                     WinCtrl: false,
                     Shift: true,
@@ -2497,6 +2539,7 @@ export var config = {
                 },
                 cut: {
                     // 剪切当前文档全文(Shift + Alt + X)
+                    enable: true,
                     CtrlCmd: false,
                     WinCtrl: false,
                     Shift: true,
@@ -2506,6 +2549,7 @@ export var config = {
                 heading: {
                     fold: {
                         // 一键折叠当前文档所有标题(Shift + Alt + ↑)
+                        enable: true,
                         CtrlCmd: false,
                         WinCtrl: false,
                         Shift: true,
@@ -2514,6 +2558,7 @@ export var config = {
                     },
                     unfold: {
                         // 一键折展开当前文档所有标题(Shift + Alt + ↓)
+                        enable: true,
                         CtrlCmd: false,
                         WinCtrl: false,
                         Shift: true,
@@ -2524,6 +2569,7 @@ export var config = {
                 outline: {
                     u: {
                         // 复制当前文档大纲(无序列表)至剪贴板(Ctrl + Shift + Alt + U)
+                        enable: true,
                         CtrlCmd: true,
                         WinCtrl: false,
                         Shift: true,
@@ -2532,6 +2578,7 @@ export var config = {
                     },
                     o: {
                         // 复制当前文档大纲(有序列表)至剪贴板(Ctrl + Shift + Alt + O)
+                        enable: true,
                         CtrlCmd: true,
                         WinCtrl: false,
                         Shift: true,
@@ -2540,6 +2587,7 @@ export var config = {
                     },
                     t: {
                         // 复制当前文档大纲(任务列表)至剪贴板(Ctrl + Shift + Alt + T)
+                        enable: true,
                         CtrlCmd: true,
                         WinCtrl: false,
                         Shift: true,
@@ -2551,6 +2599,7 @@ export var config = {
             typewriter: {
                 switch: {
                     // 打字机模式开关(Shift + Alt + T)
+                    enable: true,
                     CtrlCmd: false,
                     WinCtrl: false,
                     Shift: true,
@@ -2560,6 +2609,7 @@ export var config = {
             },
             invert: {
                 // 反色开关(Shift + Alt + I)
+                enable: true,
                 CtrlCmd: false,
                 WinCtrl: false,
                 Shift: true,
@@ -2570,6 +2620,7 @@ export var config = {
                 image: {
                     web: {
                         // 更换网络背景图片(Shift + Alt + R)
+                        enable: true,
                         CtrlCmd: false,
                         WinCtrl: false,
                         Shift: true,
@@ -2578,6 +2629,7 @@ export var config = {
                     },
                     custom: {
                         // 更换自定义背景图片(Ctrl + Shift + Alt + I)
+                        enable: true,
                         CtrlCmd: true,
                         WinCtrl: false,
                         Shift: true,
@@ -2591,6 +2643,7 @@ export var config = {
                     block: {
                         outfocus: {
                             // 新窗口打开当前块, 否则打开当前文档(Shift + Alt + N)
+                            enable: true,
                             CtrlCmd: false,
                             WinCtrl: false,
                             Shift: true,
@@ -2599,6 +2652,7 @@ export var config = {
                         },
                         infocus: {
                             // 新窗口打开当前块并聚焦, 否则打开当前文档(Ctrl + Shift + Alt + N)
+                            enable: true,
                             CtrlCmd: true,
                             WinCtrl: false,
                             Shift: true,
@@ -2609,6 +2663,7 @@ export var config = {
                     link: {
                         outfocus: {
                             // 新窗口打开链接(鼠标中键)
+                            enable: true,
                             CtrlCmd: false,
                             WinCtrl: false,
                             Shift: false,
@@ -2617,6 +2672,7 @@ export var config = {
                         },
                         infocus: {
                             // 新窗口打开链接并聚焦(Shift + 鼠标中键)
+                            enable: true,
                             CtrlCmd: false,
                             WinCtrl: false,
                             Shift: true,
@@ -2626,6 +2682,7 @@ export var config = {
                     },
                     editor: {
                         // 新窗口打开编辑器(Alt + 鼠标中键)
+                        enable: true,
                         CtrlCmd: false,
                         WinCtrl: false,
                         Shift: false,
@@ -2634,6 +2691,7 @@ export var config = {
                     },
                     markdown: {
                         // 以 markdown 模式在新窗口打开编辑器(Shift + Alt + 鼠标中键)
+                        enable: true,
                         CtrlCmd: false,
                         WinCtrl: false,
                         Shift: true,
@@ -2645,6 +2703,7 @@ export var config = {
             wheel: {
                 zoom: {
                     // 鼠标滚轮缩放(Ctrl + wheel)
+                    enable: true,
                     CtrlCmd: true,
                     WinCtrl: false,
                     Shift: false,
@@ -2656,6 +2715,7 @@ export var config = {
                 slider: {
                     goto: {
                         // 跳转到上次浏览位置(鼠标右键单击块滚动条)
+                        enable: true,
                         CtrlCmd: false,
                         WinCtrl: false,
                         Shift: false,
@@ -2665,6 +2725,7 @@ export var config = {
                 },
                 record: {
                     // 记录浏览位置(Shift + Alt + L)
+                    enable: true,
                     CtrlCmd: false,
                     WinCtrl: false,
                     Shift: true,
@@ -2673,6 +2734,7 @@ export var config = {
                 },
                 clear: {
                     // 移除浏览位置(Ctrl + Shift + Alt + L)
+                    enable: true,
                     CtrlCmd: true,
                     WinCtrl: false,
                     Shift: true,
@@ -2683,6 +2745,7 @@ export var config = {
             dock: {
                 fold: {
                     // 一键折叠/展开功能面板(Shift + Alt + F)
+                    enable: true,
                     CtrlCmd: false,
                     WinCtrl: false,
                     Shift: true,
@@ -2693,6 +2756,7 @@ export var config = {
             menu: {
                 block: {
                     // 块菜单开关(Shift + Alt + M)
+                    enable: true,
                     CtrlCmd: false,
                     WinCtrl: false,
                     Shift: true,
@@ -2724,6 +2788,7 @@ export var custom = {
             [config.theme.toolbar.more.id]: { default: true }, // 工具栏是否展开
             [config.theme.location.record.toolbar.id]: { default: false }, // 当前浏览位置
             [config.theme.menu.block.toolbar.id]: { default: false }, // 块功能增强
+            [config.theme.style.itemtext.toolbar.id]: { default: false }, // 完整显示文本内容
             [config.theme.style.tabbar.toolbar.id]: { default: false }, // 纵向排列选项卡
             [config.theme.style.guides.toolbar.id]: { default: false }, // 列表辅助线
             [config.theme.style.mark.toolbar.id]: { default: false }, // 显示标记文本

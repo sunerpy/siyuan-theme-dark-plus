@@ -47,6 +47,19 @@
   min-width: 100px;
   width: auto !important;
 }
+.b3-dialog__container #searchList .b3-list-item[data-type="search-item"] {
+  padding-bottom: calc(1.25em + 1px);
+}
+.b3-dialog__container #searchList .b3-list-item[data-type="search-item"] .b3-list-item__text {
+  display: var(--custom-search-display);
+}
+.b3-dialog__container #searchList .b3-list-item[data-type="search-item"] .b3-list-item__meta {
+  position: absolute;
+  right: 8px;
+  bottom: 0.25em;
+  max-width: calc(100% - 12px);
+  line-height: 1.25em;
+}
 /* 搜索结果列表 */
 #searchList,
 #searchPreview {
@@ -63,7 +76,7 @@
 }
 #historyContainer .b3-dialog__scrim {
   /* 对话框遮罩 */
-  background-color: var(--custom-dialog-scrim-background-color);
+  background-color: var(--custom-scrim-background-color);
 }
 /* 搜索控件 */
 /* div.b3-dialog__container div.fn__flex-column>div.b3-form__space--small {
