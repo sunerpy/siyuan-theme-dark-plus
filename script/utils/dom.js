@@ -373,7 +373,7 @@ function getBlockSelected() {
  * @param {object} attrs 块属性 dict
  */
 function setBlockDOMAttrs(id, attrs) {
-    let block = document.querySelector(`div.protyle-content div[data-node-id="${id}"]`);
+    let block = document.querySelector(`.protyle-content [data-node-id="${id}"]`);
     if (block) {
         if (block.className === 'protyle-background') {
             while (block && block.dataset.docType == null) block = block.nextElementSibling;
@@ -437,7 +437,7 @@ function getEditorsFromLayout(centerLayout) {
         const layout = layouts.pop();
         if (layout.children.length > 0) {
             for (let child of layout.children) {
-                if (child.model) editors.push(child.model.editor);
+                if (child.model?.editor) editors.push(child.model.editor);
                 else if (child.children) layouts.push(child);
             }
         }

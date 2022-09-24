@@ -1,5 +1,33 @@
 # 更改日志 | CHANGE LOG
 
+- 添加页签项下拉列表控件样式 | Add the style of tab drop down list control.
+- [#105](https://github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/issues/105) 评论支持输入 markdown 及渲染 | Comments support markdown and rendering.
+- 新增 TheBrain URL Scheme 超链接 `brain://` 图标 | Added the URL Scheme link `brain://` icon of TheBrain.
+
+## v1.3.1/2022-09-22
+
+- [v1.3.0 <=> v1.3.1](https:///github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/compare/v1.3.0...v1.3.1)
+- 调整表格边距 | Adjust table margins.
+- 调整列表项内水平分割线高度 | Adjust the height of the horizontal rule within the list item.
+- 更换背景图片时同时更换全屏模式背景图片 | Change the full-screen background image when changing the background image.
+- 修复 jupyter 客户端 i18n 调用问题 | Fixed the issue of jupyter client i18n function call.
+- 修复 jupyter 客户端运行时间解析错误问题 | Fixed the issue of jupyter client runtime parser.
+- 修复 jupyter 客户端文档页面设置加载后内核与内核名称及图标不匹配问题 | Fix the issue of jupyter client document setting page after loading with the kernel does not match kernel name and icon.
+- 修复打开 PDF 或可在标签页预览的文件时只读模式切换失效问题 | Fixed an issue where the read-only mode switch does not work when opening PDFs or files that can be previewed in tabs.
+- `kbd` 样式兼容 `v2.2.0` | `kbd` style is compatible with `v2.2.0`.
+- `mark` 样式兼容 `v2.2.0` | `mark` style is compatible with `v2.2.0`.
+- `s` 样式兼容 `v2.2.0` | `s` style is compatible with `v2.2.0`.
+- `tag` 样式兼容 `v2.2.0` | `tag` style is compatible with `v2.2.0`.
+- `code` 样式兼容 `v2.2.0` | `code` style is compatible with `v2.2.0`.
+- 自定义工具栏兼容没有 `windowControls` 元素 | Custom toolbars are  without the `windowControls` element.
+- 添加侧边栏树形列表辅助线 | Add a sidebar tree list guide.
+- 树形侧边栏列表辅助线兼容移动端 | The tree sidebar list guide is compatible with mobile client.
+- 调整标签样式 | Adjacte the style of tag.
+- 为文档大纲树形列表辅助线设置颜色 | Set the color for the document outline tree list guides.
+- 修复应用文档树辅助线后无法在文档树面板定位文档的问题 | Fixed the issue that documents could not be located in document tree panel after applying document tree guides.
+- 移除标签边框 | Remove the border of tags.
+- 评论功能兼容 `v2.2.0` | Comments feature is compatible with `v2.2.0`.
+
 ## v1.3.0/2022-09-14
 
 - [v1.2.8 <=> v1.3.0](https:///github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/compare/v1.2.8...v1.3.0)
@@ -392,7 +420,7 @@
 - 增加 Monaco Editor 复制当前页面链接功能 | Add a function to copy the current page's link to the clipboard in the Monaco Editor.
 - 增加 Monaco Editor 复制当前页面完整链接功能 | Add a function to copy the current page's full link to the clipboard in the Monaco Editor.
 - 在自述文件中添加项目依赖 | Add project dependencies in the README file.
-- 新增 `calibre` URL Scheme 超链接图标 | Added `evernote` URL Scheme link icon.
+- 新增 `calibre` URL Scheme 超链接图标 | Added `calibre` URL Scheme link icon.
 - 增加 Monaco Editor 在 VS Code 中打开文件/目录功能 | Add a function to open file and directory in VS Code in the Monaco Editor.
 - 视频时间戳功能支持单击视频内部触发 | Support click to trigger the video timestamp function in the video player.
 - 调整收集箱面板背景颜色 | Adjust the background color of the collection panel.
