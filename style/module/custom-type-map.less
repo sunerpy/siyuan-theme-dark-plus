@@ -3,7 +3,9 @@
  * REF [royc01/notion-theme](https://github.com/royc01/notion-theme/blob/c5e535a8f40a97c1d42384a7715ced88261dd59f/theme.css#L1444-L1577)
  */
 
-@import (css) url(/appearance/themes/Dark+/style/module/config.css);
+@import (css) url(/appearance/themes/Dark+/style/config/config.css);
+@import (css) url(/appearance/themes/Dark+/style/config/light.css);
+@import (css) url(/appearance/themes/Dark+/style/config/dark.css);
 @import (css) url(/widgets/custom.css);
 
 // 高度
@@ -127,12 +129,24 @@
                         align-items: center;
                         display: flex;
 
-                        >div[contenteditable][spellcheck] {
-                            /* 文字框 */
-                            white-space: pre; // 保留换行
+                        // 文字框
+                        >[contenteditable][spellcheck],
+                        // 公式块
+                        .katex-display {
                             outline: 1px solid var(--b3-theme-on-surface);
                             border-radius: var(--custom-border-radius);
+                        }
+
+                        // 文字框
+                        >[contenteditable][spellcheck] {
+                            white-space: pre; // 保留换行
                             padding: 0 0.5em;
+                        }
+
+                        // 公式块
+                        .katex-display {
+                            margin: 0;
+                            padding: 0.5em;
                         }
                     }
 

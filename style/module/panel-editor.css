@@ -1,5 +1,7 @@
 /* 编辑区面板 */
-@import url(/appearance/themes/Dark+/style/module/config.css);
+@import url(/appearance/themes/Dark+/style/config/config.css);
+@import url(/appearance/themes/Dark+/style/config/light.css);
+@import url(/appearance/themes/Dark+/style/config/dark.css);
 @import url(/widgets/custom.css);
 .fn__flex-1.protyle.fullscreen .protyle-content {
   /* 全屏模式编辑区 */
@@ -38,7 +40,7 @@
   margin-left: 0;
 }
 .wysiwygLoading {
-  background-color: var(--custom-scrim-background-color) !important;
+  background-color: transparent !important;
 }
 .protyle-content[data-fullwidth="true"] > .protyle-background > .protyle-background__iconw {
   /* 文档标志 */

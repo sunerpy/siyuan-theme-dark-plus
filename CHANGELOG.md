@@ -1,8 +1,20 @@
 # 更改日志 | CHANGE LOG
 
+## v1.3.2/2022-09-30
+
+- [v1.3.1 <=> v1.3.2](https:///github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/compare/v1.3.1...v1.3.2)
 - 添加页签项下拉列表控件样式 | Add the style of tab drop down list control.
 - [#105](https://github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/issues/105) 评论支持输入 markdown 及渲染 | Comments support markdown and rendering.
 - 新增 TheBrain URL Scheme 超链接 `brain://` 图标 | Added the URL Scheme link `brain://` icon of TheBrain.
+- 修复叠加样式的标记元素无法显示的问题 | Fixed the issue of marked elements that apply multiple styles can't displayed.
+- 移除文档树的列表辅助线 | Removes list guides from the document tree.
+- [#106](https://github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/issues/106) 修复复制当前文档大纲为有序/无需列表功能开关混淆问题 | Fixed the confusing issue with the two switch of coping the current document outline as ordered/unordered list feature.
+- 调整删除线元素颜色 | Adjusted the color of strikethrough line elements.
+- 优化视频时间戳 | Optimized video timestamps.
+- 调整列表脑图视图中公式块样式 | Adjust the formula block style in the brain map view of list.
+- 为表格添加鼠标悬浮的单元格边框 | Add a mouse-hovered cell border to the table.
+- 使用明亮主题时支持以明亮颜色导出 | Export in light colors is supported when using the Bright theme.
+- 调整加载中区域的背景颜色 | Adjusts the background color of the area being loaded.
 
 ## v1.3.1/2022-09-22
 
