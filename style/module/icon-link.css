@@ -1,9 +1,5 @@
 /* 超链接图标 */
 
-@import url(/appearance/themes/Dark+/style/config/config.css);
-@import url(/appearance/themes/Dark+/style/config/light.css);
-@import url(/appearance/themes/Dark+/style/config/dark.css);
-@import url(/widgets/custom.css);
 
 /* REF https://github.com/Achuan-2/siyuan-themes-tsundoku-dark/blob/c1362a39693703481c8acd3efab67eb390bb789a/theme.css#L2080 */
 /* -------------------------------- custom: 超链接 icon BEGIN -------------------------------- */
@@ -136,6 +132,11 @@
 .protyle-wysiwyg [data-node-id] span[data-type='a'][data-href ^="zotero:"]:not(:empty)::before,
 .b3-typography a[href ^="zotero:"]::before {
     background-image: url(/appearance/themes/Dark+/icon/zotero.ico) !important;
+}
+
+.protyle-wysiwyg [data-node-id] span[data-type='a'][data-href ^="zotero://open-pdf/"]:not(:empty)::before,
+.b3-typography a[href ^="zotero://open-pdf/"]::before {
+    background-image: url(/appearance/themes/Dark+/icon/zotero-light.ico) !important;
 }
 
 /* -------------------------------- 其他特化超链接 -------------------------------- */

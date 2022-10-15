@@ -1,5 +1,35 @@
 # 更改日志 | CHANGE LOG
 
+- 实现浮窗预览某个块的方法 `popover` | Implement a method `popover` to preview a block using popover window.
+- 新增自定义 CSS 变量 `--custom-template-preview-width` 与 `--custom-template-preview-min-width` 设置模板预览窗口的宽度 | Add the custom CSS variable `--custom-template-preview-width` and `--custom-template-preview-min-width` to customize the width of the template preview window.
+- 兼容删除线样式与背景/前景色样式 | Compatible with strikethrough styles and background/foreground colors.
+- 移除只读模式 | Remove read-only mode.
+  - REF: [Issue #2648 · siyuan-note/siyuan](https://github.com/siyuan-note/siyuan/issues/2648)
+- 移除嵌入块`显示查询结果路径`功能 | Remove the `Display Query Results` Path' feature for embedded blocks.
+  - REF: [Issue #2985 · siyuan-note/siyuan](https://github.com/siyuan-note/siyuan/issues/2985)
+- 调整面包屑样式 | Adjust the style of breadcrumb.
+- 移除 CSS 模块中对配置文件的引用 | Removes the reference to the configuration files in the CSS module.
+- 调整反色显示模式色相转换 | Adjusts the inverted display mode Hue transformation.
+- 反向链接面板项应用搜索列表样式 | Backlinks panel items apply the list style of search results.
+
+## v1.3.3/2022-10-12
+
+- [v1.3.2 <=> v1.3.3](https:///github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/compare/v1.3.2...v1.3.3)
+- 面包屑样式应用于反链面板 | The breadcrumb style is applied to the reverse chain panel.
+- 移除可编辑反链面板编辑区右侧外边框 | Removes the margin to the right of the editable backchain panel editing area.
+- jupyter 客户端使用消息队列处理接收到的消息 | The jupyter client uses Message Queuing to process the received messages.
+- 为嵌入块菜单添加 `显示查询结果路径` 功能 | Added the `Display Query Results' Path` feature for the embedded block menu.
+- 调整反链面板面包屑样式 | Adjust the breadcrumb style of backlink panel.
+- [#103](https://github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/issues/103) 修复列表脑图视图辅助线错位问题 | Fixed the issue of misalignment of guides in the brain map view of the list.
+- 调整列表脑图视图块内间距 | Adjust the padding within the block in the brain map view of the list.
+- 为 Zotero 的 PDF 跳转链接添加图标 | Add an icon to Zotero's PDF link.
+- 调整图片导出预览模式中的样式 | Adjust the style of images in export preview mode.
+- 调整嵌入块样式 | Adjust the style of embedded block.
+- 添加自定义 CSS 变量 `--custom-tab-bar-item-min-width` 以调整非钉住的页签项最小宽度 | Add the custom CSS variable `--custom-tab-bar-item-min-width` to adjust the minimum width of non-pinned tabs.
+- 调整大纲面板的列表辅助线 | Adjuct the list guides of the outline panel.
+- 调整悬浮窗口中悬浮输入文本框的样式 | Restyle the hover input text box in the popover window.
+- 调整悬浮提示框的样式 | Adjust the style of the tooltip.
+
 ## v1.3.2/2022-09-30
 
 - [v1.3.1 <=> v1.3.2](https:///github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/compare/v1.3.1...v1.3.2)
@@ -7,7 +37,7 @@
 - [#105](https://github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/issues/105) 评论支持输入 markdown 及渲染 | Comments support markdown and rendering.
 - 新增 TheBrain URL Scheme 超链接 `brain://` 图标 | Added the URL Scheme link `brain://` icon of TheBrain.
 - 修复叠加样式的标记元素无法显示的问题 | Fixed the issue of marked elements that apply multiple styles can't displayed.
-- 移除文档树的列表辅助线 | Removes list guides from the document tree.
+- 移除文档树的列表辅助线 | Removes the list guides of the document tree.
 - [#106](https://github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/issues/106) 修复复制当前文档大纲为有序/无需列表功能开关混淆问题 | Fixed the confusing issue with the two switch of coping the current document outline as ordered/unordered list feature.
 - 调整删除线元素颜色 | Adjusted the color of strikethrough line elements.
 - 优化视频时间戳 | Optimized video timestamps.

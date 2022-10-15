@@ -1,8 +1,4 @@
 /* 代码块 */
-@import url(/appearance/themes/Dark+/style/config/config.css);
-@import url(/appearance/themes/Dark+/style/config/light.css);
-@import url(/appearance/themes/Dark+/style/config/dark.css);
-@import url(/widgets/custom.css);
 /* 👇编辑区与导出预览共用样式👇 */
 .b3-typography .code-block,
 .protyle-wysiwyg .code-block {
@@ -22,6 +18,9 @@
 }
 /* 👆导出预览样式👆 */
 /* 👇编辑区样式👇 */
+.protyle-wysiwyg [data-node-id].code-block {
+  margin: 0.5em 0;
+}
 .protyle-wysiwyg [data-node-id].code-block > .protyle-action {
   /* 功能按钮栏 */
   left: auto;

@@ -1,23 +1,26 @@
 /* 嵌入块 */
 
-@import (css) url(/appearance/themes/Dark+/style/config/config.css);
-@import (css) url(/appearance/themes/Dark+/style/config/light.css);
-@import (css) url(/appearance/themes/Dark+/style/config/dark.css);
-@import (css) url(/widgets/custom.css);
 
 .protyle-wysiwyg {
     [data-node-id][data-type="NodeBlockQueryEmbed"].render-node {
         /* 嵌入块 */
         border: none;
         outline: 2px solid var(--custom-line-color);
-        background-color: var(--custom-block-embed-background-color) !important;
+        background-color: var(--custom-block-embed-background-color);
 
         >.protyle-wysiwyg__embed {
-            &:not(:nth-of-type(2)) {
+            border-top: none;
+
+            &:hover {
+                /* 查询结果鼠标悬停时显示边框 */
+                outline: 1px solid var(--b3-theme-on-surface);
+            }
+
+            &:not(:nth-last-child(3)) {
                 /* 嵌入块间分隔线 */
                 position: relative;
                 // border-top: 1px dashed var(--custom-line-color);
-                border-top: 4px double var(--custom-line-color);
+                // border-bottom: 4px double var(--custom-line-color);
             }
         }
     }

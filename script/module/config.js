@@ -496,7 +496,7 @@ export var config = {
                     enable: true,
                     style: {
                         id: 'theme-invert-elements-img-style',
-                        innerHTML: 'img:not(.emoji, .thumbnailImage), div.thumbnailSelectionRing {filter: invert(100%);}div.protyle-background__icon>img,span.b3-list-item__icon>img {filter: none;}', // 样式标签内容
+                        innerHTML: 'img:not(.emoji, .thumbnailImage), div.thumbnailSelectionRing {filter: invert(100%) hue-rotate(180deg);}div.protyle-background__icon>img,span.b3-list-item__icon>img {filter: none;}', // 样式标签内容
                     },
                 },
                 viewer: {
@@ -504,7 +504,7 @@ export var config = {
                     enable: true,
                     style: {
                         id: 'theme-invert-elements-viewer-style',
-                        innerHTML: '#viewer {filter: invert(100%);}',
+                        innerHTML: '#viewer {filter: invert(100%) hue-rotate(180deg);}',
                     },
                 },
                 iframe: {
@@ -512,7 +512,7 @@ export var config = {
                     enable: true,
                     style: {
                         id: 'theme-invert-elements-iframe-style',
-                        innerHTML: 'iframe {filter: invert(100%);}',
+                        innerHTML: 'iframe {filter: invert(100%) hue-rotate(180deg);}',
                     },
                 },
                 video: {
@@ -520,7 +520,7 @@ export var config = {
                     enable: true,
                     style: {
                         id: 'theme-invert-elements-video-style',
-                        innerHTML: 'video {filter: invert(100%);}',
+                        innerHTML: 'video {filter: invert(100%) hue-rotate(180deg);}',
                     },
                 },
             },
@@ -847,8 +847,8 @@ export var config = {
                 },
             }
         },
-        readonly: {
-            enable: true, // 只读功能开关
+        readonly: { // @deprecated: https://github.com/siyuan-note/siyuan/issues/2648
+            enable: false, // 只读功能开关 
             toolbar: { // 菜单栏
                 enable: true,
                 display: true,
@@ -1335,18 +1335,10 @@ export var config = {
                             {
                                 enable: true,
                                 type: {
-                                    NodeAudio: {
-                                        enable: true,
-                                    },
-                                    NodeIFrame: {
-                                        enable: true,
-                                    },
-                                    NodeVideo: {
-                                        enable: true,
-                                    },
-                                    NodeWidget: {
-                                        enable: true,
-                                    },
+                                    NodeAudio: { enable: true },
+                                    NodeIFrame: { enable: true },
+                                    NodeVideo: { enable: true },
+                                    NodeWidget: { enable: true },
                                 },
                                 mode: "button",
                                 icon: "#iconLanguage",
@@ -1574,18 +1566,10 @@ export var config = {
                             {
                                 enable: true,
                                 type: {
-                                    NodeAudio: {
-                                        enable: true,
-                                    },
-                                    NodeIFrame: {
-                                        enable: true,
-                                    },
-                                    NodeVideo: {
-                                        enable: true,
-                                    },
-                                    NodeWidget: {
-                                        enable: true,
-                                    },
+                                    NodeAudio: { enable: true },
+                                    NodeIFrame: { enable: true },
+                                    NodeVideo: { enable: true },
+                                    NodeWidget: { enable: true },
                                 },
                                 mode: "button",
                                 icon: "#iconMenu",
@@ -1613,66 +1597,30 @@ export var config = {
                             {
                                 enable: true,
                                 type: {
-                                    NodeDocument: {
-                                        enable: true,
-                                    },
-                                    NodeBlockQueryEmbed: {
-                                        enable: true,
-                                    },
-                                    NodeBlockquote: {
-                                        enable: true,
-                                    },
-                                    NodeList: {
-                                        enable: true,
-                                    },
-                                    NodeListItem: {
-                                        enable: true,
-                                    },
-                                    NodeSuperBlock: {
-                                        enable: true,
-                                    },
-                                    NodeHeading: {
-                                        enable: true,
-                                    },
-                                    NodeParagraph: {
-                                        enable: true,
-                                    },
-                                    NodeTable: {
-                                        enable: true,
-                                    },
+                                    NodeDocument: { enable: true },
+                                    NodeBlockQueryEmbed: { enable: true },
+                                    NodeBlockquote: { enable: true },
+                                    NodeList: { enable: true },
+                                    NodeListItem: { enable: true },
+                                    NodeSuperBlock: { enable: true },
+                                    NodeHeading: { enable: true },
+                                    NodeParagraph: { enable: true },
+                                    NodeTable: { enable: true },
                                 },
                                 mode: "separator",
                             },
                             {
                                 enable: true,
                                 type: {
-                                    NodeDocument: {
-                                        enable: true,
-                                    },
-                                    NodeBlockQueryEmbed: {
-                                        enable: true,
-                                    },
-                                    NodeBlockquote: {
-                                        enable: true,
-                                    },
-                                    NodeList: {
-                                        enable: true,
-                                    },
-                                    NodeListItem: {
-                                        enable: true,
-                                    },
-                                    NodeSuperBlock: {
-                                        enable: true,
-                                    },
-                                    NodeHeading: {
-                                        enable: true,
-                                    },
-                                    NodeParagraph: {
-                                        enable: true,
-                                    },
-                                    NodeTable: {
-                                        enable: true,
-                                    },
+                                    NodeDocument: { enable: true },
+                                    NodeBlockQueryEmbed: { enable: true },
+                                    NodeBlockquote: { enable: true },
+                                    NodeList: { enable: true },
+                                    NodeListItem: { enable: true },
+                                    NodeSuperBlock: { enable: true },
+                                    NodeHeading: { enable: true },
+                                    NodeParagraph: { enable: true },
+                                    NodeTable: { enable: true },
                                 },
                                 mode: "button",
                                 icon: "#iconMark",
@@ -1700,33 +1648,15 @@ export var config = {
                             {
                                 enable: true,
                                 type: {
-                                    NodeDocument: {
-                                        enable: true,
-                                    },
-                                    NodeBlockQueryEmbed: {
-                                        enable: true,
-                                    },
-                                    NodeBlockquote: {
-                                        enable: true,
-                                    },
-                                    NodeList: {
-                                        enable: true,
-                                    },
-                                    NodeListItem: {
-                                        enable: true,
-                                    },
-                                    NodeSuperBlock: {
-                                        enable: true,
-                                    },
-                                    NodeHeading: {
-                                        enable: true,
-                                    },
-                                    NodeParagraph: {
-                                        enable: true,
-                                    },
-                                    NodeTable: {
-                                        enable: true,
-                                    },
+                                    NodeDocument: { enable: true },
+                                    NodeBlockQueryEmbed: { enable: true },
+                                    NodeBlockquote: { enable: true },
+                                    NodeList: { enable: true },
+                                    NodeListItem: { enable: true },
+                                    NodeSuperBlock: { enable: true },
+                                    NodeHeading: { enable: true },
+                                    NodeParagraph: { enable: true },
+                                    NodeTable: { enable: true },
                                 },
                                 mode: "button",
                                 icon: "#iconInsertColumn",
@@ -1757,15 +1687,9 @@ export var config = {
                             {
                                 enable: true,
                                 type: {
-                                    NodeDocument: {
-                                        enable: true,
-                                    },
-                                    NodeList: {
-                                        enable: true,
-                                    },
-                                    NodeTable: {
-                                        enable: true,
-                                    },
+                                    NodeDocument: { enable: true },
+                                    NodeList: { enable: true },
+                                    NodeTable: { enable: true },
                                 },
                                 mode: "separator",
                             },
@@ -1803,9 +1727,7 @@ export var config = {
                             {
                                 enable: true,
                                 type: {
-                                    NodeDocument: {
-                                        enable: true,
-                                    },
+                                    NodeDocument: { enable: true },
                                 },
                                 mode: "button",
                                 icon: "#iconImage",
@@ -1838,9 +1760,7 @@ export var config = {
                             {
                                 enable: true,
                                 type: {
-                                    NodeDocument: {
-                                        enable: true,
-                                    },
+                                    NodeDocument: { enable: true },
                                 },
                                 mode: "button",
                                 icon: "#iconTable",
@@ -1873,18 +1793,14 @@ export var config = {
                             {
                                 enable: true,
                                 type: {
-                                    NodeDocument: {
-                                        enable: true,
-                                    },
+                                    NodeDocument: { enable: true },
                                 },
                                 mode: "separator",
                             },
                             {
                                 enable: true,
                                 type: {
-                                    NodeDocument: {
-                                        enable: true,
-                                    },
+                                    NodeDocument: { enable: true },
                                 },
                                 mode: "button",
                                 icon: "#iconTrashcan",
@@ -1909,18 +1825,14 @@ export var config = {
                             {
                                 enable: true,
                                 type: {
-                                    NodeDocument: {
-                                        enable: true,
-                                    },
+                                    NodeDocument: { enable: true },
                                 },
                                 mode: "separator",
                             },
                             {
                                 enable: true,
                                 type: {
-                                    NodeDocument: {
-                                        enable: true,
-                                    },
+                                    NodeDocument: { enable: true },
                                 },
                                 mode: "button",
                                 icon: "#iconInfo",
@@ -1948,9 +1860,7 @@ export var config = {
                             {
                                 enable: true,
                                 type: {
-                                    NodeDocument: {
-                                        enable: true,
-                                    },
+                                    NodeDocument: { enable: true },
                                 },
                                 mode: "button",
                                 icon: "#iconLink",
@@ -1978,18 +1888,14 @@ export var config = {
                             {
                                 enable: true,
                                 type: {
-                                    NodeDocument: {
-                                        enable: true,
-                                    },
+                                    NodeDocument: { enable: true },
                                 },
                                 mode: "separator",
                             },
                             {
                                 enable: true,
                                 type: {
-                                    NodeDocument: {
-                                        enable: true,
-                                    },
+                                    NodeDocument: { enable: true },
                                 },
                                 mode: "button",
                                 icon: "#iconSpreadOdd",
@@ -2017,9 +1923,7 @@ export var config = {
                             {
                                 enable: true,
                                 type: {
-                                    NodeDocument: {
-                                        enable: true,
-                                    },
+                                    NodeDocument: { enable: true },
                                 },
                                 mode: "button",
                                 icon: "#iconMarkdown",
@@ -2047,9 +1951,7 @@ export var config = {
                             {
                                 enable: true,
                                 type: {
-                                    NodeDocument: {
-                                        enable: true,
-                                    },
+                                    NodeDocument: { enable: true },
                                 },
                                 mode: "button",
                                 icon: "#iconMax",
@@ -2110,44 +2012,53 @@ export var config = {
                                 },
                             },
                             {
+                                enable: false,
+                                type: {
+                                    NodeBlockQueryEmbed: { enable: true },
+                                },
+                                mode: "separator",
+                            },
+                            {
+                                enable: false,
+                                type: {
+                                    NodeBlockQueryEmbed: { enable: true },
+                                },
+                                mode: "button",
+                                icon: "#iconFile",
+                                label: {
+                                    zh_CN: "显示查询结果路径",
+                                    other: "Display Query Results' Path",
+                                },
+                                click: {
+                                    enable: true,
+                                    callback: null,
+                                    tasks: [
+                                        {
+                                            type: 'show-hpath',
+                                            params: {},
+                                        },
+                                    ],
+                                },
+                            },
+                            {
                                 enable: true,
                                 type: {
-                                    NodeDocument: {
-                                        enable: true,
-                                    },
-                                    NodeList: {
-                                        enable: true,
-                                    },
-                                    NodeSuperBlock: {
-                                        enable: true,
-                                    },
-                                    NodeBlockquote: {
-                                        enable: true,
-                                    },
-                                    NodeBlockQueryEmbed: {
-                                        enable: true,
-                                    },
+                                    NodeDocument: { enable: true },
+                                    NodeList: { enable: true },
+                                    NodeSuperBlock: { enable: true },
+                                    NodeBlockquote: { enable: true },
+                                    NodeBlockQueryEmbed: { enable: true },
                                 },
                                 mode: "separator",
                             },
                             {
                                 enable: true,
                                 type: {
-                                    NodeDocument: {
-                                        enable: true,
-                                    },
-                                    NodeList: {
-                                        enable: true,
-                                    },
-                                    NodeSuperBlock: {
-                                        enable: true,
-                                    },
-                                    NodeBlockquote: {
-                                        enable: true,
-                                    },
-                                    NodeBlockQueryEmbed: {
-                                        enable: true,
-                                    },
+                                    NodeDocument: { enable: true },
+                                    NodeList: { enable: true },
+                                    NodeSuperBlock: { enable: true },
+                                    NodeBlockquote: { enable: true },
+                                    NodeBlockQueryEmbed: { enable: true },
                                 },
                                 mode: "button",
                                 icon: "#iconList",
@@ -2172,21 +2083,11 @@ export var config = {
                             {
                                 enable: true,
                                 type: {
-                                    NodeDocument: {
-                                        enable: true,
-                                    },
-                                    NodeList: {
-                                        enable: true,
-                                    },
-                                    NodeSuperBlock: {
-                                        enable: true,
-                                    },
-                                    NodeBlockquote: {
-                                        enable: true,
-                                    },
-                                    NodeBlockQueryEmbed: {
-                                        enable: true,
-                                    },
+                                    NodeDocument: { enable: true },
+                                    NodeList: { enable: true },
+                                    NodeSuperBlock: { enable: true },
+                                    NodeBlockquote: { enable: true },
+                                    NodeBlockQueryEmbed: { enable: true },
                                 },
                                 mode: "button",
                                 icon: "#iconGraph",
@@ -2212,21 +2113,11 @@ export var config = {
                             {
                                 enable: true,
                                 type: {
-                                    NodeDocument: {
-                                        enable: true,
-                                    },
-                                    NodeList: {
-                                        enable: true,
-                                    },
-                                    NodeSuperBlock: {
-                                        enable: true,
-                                    },
-                                    NodeBlockquote: {
-                                        enable: true,
-                                    },
-                                    NodeBlockQueryEmbed: {
-                                        enable: true,
-                                    },
+                                    NodeDocument: { enable: true },
+                                    NodeList: { enable: true },
+                                    NodeSuperBlock: { enable: true },
+                                    NodeBlockquote: { enable: true },
+                                    NodeBlockQueryEmbed: { enable: true },
                                 },
                                 mode: "button",
                                 icon: "#iconTable",
@@ -2252,9 +2143,7 @@ export var config = {
                             {
                                 enable: true,
                                 type: {
-                                    NodeTable: {
-                                        enable: true,
-                                    },
+                                    NodeTable: { enable: true },
                                 },
                                 mode: "button",
                                 icon: "#iconFullscreen",
@@ -2279,9 +2168,7 @@ export var config = {
                             {
                                 enable: true,
                                 type: {
-                                    NodeTable: {
-                                        enable: true,
-                                    },
+                                    NodeTable: { enable: true },
                                 },
                                 mode: "button",
                                 icon: "#iconContract",
@@ -2306,9 +2193,7 @@ export var config = {
                             {
                                 enable: true,
                                 type: {
-                                    NodeTable: {
-                                        enable: true,
-                                    },
+                                    NodeTable: { enable: true },
                                 },
                                 mode: "button",
                                 icon: "#iconPause",

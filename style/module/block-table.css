@@ -1,13 +1,8 @@
 /* 表格块 */
-@import url(/appearance/themes/Dark+/style/config/config.css);
-@import url(/appearance/themes/Dark+/style/config/light.css);
-@import url(/appearance/themes/Dark+/style/config/dark.css);
-@import url(/widgets/custom.css);
 .b3-typography table,
 .protyle-wysiwyg table {
   /* 表格 */
   background-color: var(--custom-block-table-background-color);
-  margin: 1px 1px 1px 0px;
 }
 .b3-typography table thead,
 .protyle-wysiwyg table thead {

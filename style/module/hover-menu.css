@@ -1,37 +1,32 @@
 /* 弹出菜单 */
-@import url(/appearance/themes/Dark+/style/config/config.css);
-@import url(/appearance/themes/Dark+/style/config/light.css);
-@import url(/appearance/themes/Dark+/style/config/dark.css);
-@import url(/widgets/custom.css);
-#model,
-#commonMenu {
+.b3-menu {
   background-color: var(--custom-popover-function-menu-background-color);
   backdrop-filter: var(--custom-backdrop-popover-filter);
 }
-#commonMenu .b3-menu__item {
+.b3-menu .b3-menu__item {
   /* 菜单项 */
   background-color: transparent;
 }
-#commonMenu .b3-menu__item.b3-menu__item--current {
+.b3-menu .b3-menu__item.b3-menu__item--current {
   /* 鼠标悬停菜单项 */
   background-color: var(--b3-theme-background-light) !important;
 }
-#commonMenu .b3-menu__item > .b3-menu__submenu {
+.b3-menu .b3-menu__item > .b3-menu__submenu {
   /* 子菜单 */
   background-color: var(--custom-popover-function-menu-background-color);
   backdrop-filter: var(--custom-backdrop-popover-filter);
 }
-#commonMenu .b3-menu__separator {
+.b3-menu .b3-menu__separator {
   /* 菜单分割线 */
   height: 2px;
   background-color: var(--custom-popover-menu-separator-color);
 }
-#commonMenu .b3-menu__action:hover {
+.b3-menu .b3-menu__action:hover {
   /* 菜单按钮控件 */
   color: var(--b3-theme-surface);
   background-color: var(--b3-theme-on-surface);
 }
-#commonMenu > *:not(.emojis) input.b3-text-field {
+.b3-menu > *:not(.emojis) input.b3-text-field {
   /* 输入框 */
   min-width: var(--custom-popover-menu-input-min-width);
 }
@@ -113,6 +108,7 @@
 #searchPanel > .b3-list-item,
 .b3-list.b3-list--background:not(ul) > .b3-list-item,
 .b3-list.b3-list--background.b3-tab-bar > .b3-list-item,
+.sy__backlink .b3-list.b3-list--background > .b3-list-item,
 #historyContainer .b3-list.b3-list--background > .b3-list-item {
   /* padding-top: var(--custom-popover-menu-padding-width); */
   /* border-bottom: var(--custom-popover-menu-outline-width) var(--custom-popover-menu-outline-style) var(--b3-theme-on-surface); */
@@ -123,6 +119,7 @@
 #searchPanel > .b3-list-item:first-child,
 .b3-list.b3-list--background:not(ul) > .b3-list-item:first-child,
 .b3-list.b3-list--background.b3-tab-bar > .b3-list-item:first-child,
+.sy__backlink .b3-list.b3-list--background > .b3-list-item:first-child,
 #historyContainer .b3-list.b3-list--background > .b3-list-item:first-child {
   /* 补偿第一项 */
   margin-top: 0 !important;
@@ -130,6 +127,7 @@
 #searchPanel > .b3-list-item:last-child,
 .b3-list.b3-list--background:not(ul) > .b3-list-item:last-child,
 .b3-list.b3-list--background.b3-tab-bar > .b3-list-item:last-child,
+.sy__backlink .b3-list.b3-list--background > .b3-list-item:last-child,
 #historyContainer .b3-list.b3-list--background > .b3-list-item:last-child {
   /* 补偿最后一项 */
   margin-bottom: 0 !important;
@@ -137,12 +135,14 @@
 #searchPanel > .b3-list-itembutton,
 .b3-list.b3-list--background:not(ul) > .b3-list-itembutton,
 .b3-list.b3-list--background.b3-tab-bar > .b3-list-itembutton,
+.sy__backlink .b3-list.b3-list--background > .b3-list-itembutton,
 #historyContainer .b3-list.b3-list--background > .b3-list-itembutton {
   margin: var(--custom-popover-menu-padding-width) auto !important;
 }
 #searchPanel > .b3-list-item .b3-list-item__meta:not(.fn__flex),
 .b3-list.b3-list--background:not(ul) > .b3-list-item .b3-list-item__meta:not(.fn__flex),
 .b3-list.b3-list--background.b3-tab-bar > .b3-list-item .b3-list-item__meta:not(.fn__flex),
+.sy__backlink .b3-list.b3-list--background > .b3-list-item .b3-list-item__meta:not(.fn__flex),
 #historyContainer .b3-list.b3-list--background > .b3-list-item .b3-list-item__meta:not(.fn__flex) {
   /* 文档可读路径 */
   color: var(--custom-popover-menu-path-color);
@@ -153,6 +153,7 @@
 #searchPanel > .b3-list-item .b3-list-item__meta.fn__flex,
 .b3-list.b3-list--background:not(ul) > .b3-list-item .b3-list-item__meta.fn__flex,
 .b3-list.b3-list--background.b3-tab-bar > .b3-list-item .b3-list-item__meta.fn__flex,
+.sy__backlink .b3-list.b3-list--background > .b3-list-item .b3-list-item__meta.fn__flex,
 #historyContainer .b3-list.b3-list--background > .b3-list-item .b3-list-item__meta.fn__flex {
   /* 块属性 */
   padding: 0.5em;

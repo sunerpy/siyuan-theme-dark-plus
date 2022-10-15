@@ -1,20 +1,15 @@
 /* 弹出菜单 */
 
-@import (css) url(/appearance/themes/Dark+/style/config/config.css);
-@import (css) url(/appearance/themes/Dark+/style/config/light.css);
-@import (css) url(/appearance/themes/Dark+/style/config/dark.css);
-@import (css) url(/widgets/custom.css);
 
-// 移动端菜单
-#model,
-// 全局右键菜单
-#commonMenu {
-    background-color: var(--custom-popover-function-menu-background-color);
-    backdrop-filter: var(--custom-backdrop-popover-filter);
-}
+// // 移动端菜单
+// #model,
+// // 全局右键菜单
+// #commonMenu,
 
 // 菜单
-#commonMenu {
+.b3-menu {
+    background-color: var(--custom-popover-function-menu-background-color);
+    backdrop-filter: var(--custom-backdrop-popover-filter);
 
     .b3-menu__item {
         /* 菜单项 */
@@ -65,6 +60,7 @@
     // backdrop-filter: var(--custom-backdrop-popover-filter);
     background-color: transparent !important;
     backdrop-filter: none;
+    // 块引用搜索结果宽度设置为自动宽度
     width: var(--custom-popover-menu-width) !important;
     outline: var(--custom-popover-menu-outline-width) var(--custom-popover-menu-outline-style) var(--custom-popover-menu-outline-color);
     overflow-x: visible !important;
@@ -159,6 +155,7 @@
 
     }
 
+    // '/' 菜单>模板/挂件等二次选择菜单
     .protyle-util &,
     // 快捷键设置菜单
     #keymapList>&,
@@ -178,6 +175,7 @@
 
     &:not(ul),
     &.b3-tab-bar,
+    .sy__backlink &,
     #historyContainer & {
         >.b3-list-item {
             &:extend(#searchPanel>.b3-list-item all);
@@ -240,7 +238,6 @@
         }
     }
 
-
 }
 
 // 搜索结果列表匹配关键词
@@ -289,7 +286,6 @@
 .b3-menu.b3-list.b3-list--background.hint--menu>.b3-list-item:nth-last-of-type(1) {
     column-span: all;
 } */
-
 
 /* .b3-menu.b3-list.b3-list--background.hint--menu>.b3-list-item:last-child>div.b3-list-item__first {
     margin: auto;
