@@ -1,4 +1,8 @@
 /* 列表 */
+.protyle-wysiwyg [data-node-id].li,
+.protyle-wysiwyg [data-node-id].list {
+  margin: 0;
+}
 .protyle-wysiwyg [data-node-id].li > .protyle-action {
   /* 列表标志 */
   z-index: 0;
@@ -6,6 +10,12 @@
 .protyle-wysiwyg [data-node-id].li > .protyle-action::after {
   /* 标志阴影 */
   z-index: -1;
+}
+.protyle-wysiwyg [data-node-id].li::before {
+  /* 缩进辅助线样式 */
+  border-left-width: var(--custom-list-guides-line-width);
+  border-left-color: var(--custom-list-guides-line-color);
+  left: 16px;
 }
 .protyle-wysiwyg [data-node-id].li > [data-node-id]::before {
   /* 缩进辅助线样式 */

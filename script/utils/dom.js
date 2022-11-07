@@ -8,6 +8,7 @@ export {
     getFocusedDocBackground, // 获得焦点所在文档的背景
     getFocusedDocID, // 获得焦点所在文档的 ID
     getFocusedID, // 获得焦点所在的块 ID, 否则获得焦点所在文档的 ID
+    getTargetEditor, // 获得指定块位于的编辑区
     getTargetBlock, // 获得目标的块
     getTargetBlockID, // 获得目标的块 ID
     getTargetBlockIndex, // 获得目标的块在文档中的索引
@@ -62,9 +63,7 @@ function getDockFromPanel(panelName) {
  * @return {null} 光标不在块内
  */
 function getFocusedBlock() {
-    let block = window.getSelection()
-        && window.getSelection().focusNode
-        && window.getSelection().focusNode.parentElement; // 当前光标
+    let block = window.getSelection()?.focusNode?.parentElement; // 当前光标
     while (block != null && block.dataset.nodeId == null) block = block.parentElement;
     return block;
 }
@@ -126,6 +125,16 @@ function getFocusedID() {
     return getFocusedBlockID() || getFocusedDocID() || null;
 }
 
+/**
+ * 获得指定块位于的编辑区
+ * @params {HTMLElement} 
+ * @return {HTMLElement} 光标所在块位于的编辑区
+ * @return {null} 光标不在块内
+ */
+function getTargetEditor(block) {
+    while (block != null && !block.classList.contains('protyle-content')) block = block.parentElement;
+    return block;
+}
 
 /**
  * 获得目标的块
@@ -371,7 +380,9 @@ function getBlockSelected() {
 
 /**
  * 设置 DOM 中的块属性
- * @deprecated 2.1.15+ https://github.com/siyuan-note/siyuan/issues/5847 https://github.com/siyuan-note/siyuan/issues/5866
+ * @deprecated 该方法已被废弃(2.1.15+), 使用 API `/api/attr/setBlockAttrs` 代替
+ * > - https://github.com/siyuan-note/siyuan/issues/5847
+ * > - https://github.com/siyuan-note/siyuan/issues/5866
  * @param {string} id 块 ID
  * @param {object} attrs 块属性 dict
  */
@@ -395,7 +406,7 @@ function setBlockDOMAttrs(id, attrs) {
 
 /**
  * 设置编辑器字号
- * REF https://github.com/siyuan-note/siyuan/blob/fcabf93cabf0383a8b59616d66ec44e7869236cf/app/src/protyle/export/index.ts#L242-L107
+ * REF https://github.com/siyuan-note/siyuan/blob/7fbae2f7438a313837218e419468e0b189163c6a/app/src/util/assets.ts#L120-L145
  * @param {number} fontSize 字号
  * @return {number} 设置后的字号
  * @return {null} 没有找到字号
@@ -406,7 +417,7 @@ function setFontSize(fontSize) {
         const height = Math.floor(fontSize * 1.625);
         style.innerHTML = `
 .b3-typography, .protyle-wysiwyg, .protyle-title {font-size:${fontSize}px !important}
-.b3-typography code:not(.hljs), .protyle-wysiwyg code:not(.hljs) { font-variant-ligatures: ${window.siyuan.config.editor.codeLigatures ? "normal" : "none"} }
+.b3-typography code:not(.hljs), .protyle-wysiwyg span[data-type~=code] { font-variant-ligatures: ${window.siyuan.config.editor.codeLigatures ? "normal" : "none"} }
 .li > .protyle-action {height:${height + 8}px;line-height: ${height + 8}px}
 .protyle-wysiwyg [data-node-id].li > .protyle-action ~ .h1, .protyle-wysiwyg [data-node-id].li > .protyle-action ~ .h2, .protyle-wysiwyg [data-node-id].li > .protyle-action ~ .h3, .protyle-wysiwyg [data-node-id].li > .protyle-action ~ .h4, .protyle-wysiwyg [data-node-id].li > .protyle-action ~ .h5, .protyle-wysiwyg [data-node-id].li > .protyle-action ~ .h6 {line-height:${height + 8}px;}
 .protyle-wysiwyg [data-node-id].li > .protyle-action:after {height: ${fontSize}px;width: ${fontSize}px;margin:-${fontSize / 2}px 0 0 -${fontSize / 2}px}
@@ -421,7 +432,7 @@ function setFontSize(fontSize) {
 .protyle-wysiwyg .h4 img.emoji, .b3-typography h4 img.emoji {width:${Math.floor(fontSize * 1.25 * 1.25)}px}
 .protyle-wysiwyg .h5 img.emoji, .b3-typography h5 img.emoji {width:${Math.floor(fontSize * 1.13 * 1.25)}px}
 .protyle-wysiwyg .h6 img.emoji, .b3-typography h6 img.emoji {width:${Math.floor(fontSize * 1.25)}px}
-.b3-typography, .protyle-wysiwyg, .protyle-title, .protyle-title__input{font-family: "${window.siyuan.config.editor.fontFamily}", "quote", "Helvetica Neue", "Luxi Sans", "DejaVu Sans", "Hiragino Sans GB", "Microsoft Yahei", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "Segoe UI Symbol", "Android Emoji", "EmojiSymbols" !important;}
+.b3-typography:not(.b3-typography--default), .protyle-wysiwyg, .protyle-title, .protyle-title__input{font-family: "${window.siyuan.config.editor.fontFamily}", "quote", "Helvetica Neue", "Luxi Sans", "DejaVu Sans", "Hiragino Sans GB", "Microsoft Yahei", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "Segoe UI Symbol", "Android Emoji", "EmojiSymbols" !important;}
 `;
         return parseInt(config.theme.regs.fontsize.exec(style.innerHTML));
     }
@@ -610,6 +621,7 @@ function setDockState(items, state) {
 
 /**
  * 计算当前节点是上级节点的第几个节点
+ * @deprecated 该方法已被废弃, 使用 API `/api/block/getBlockIndex` 代替
  * @params {HTMLElement} element: 当前节点
  * @params {Array} classList: 类字段列表
  * @return {int}: 节点索引数

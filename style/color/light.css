@@ -4,10 +4,14 @@
 
 :root {
     /* 背景图片 */
+<<<<<<< HEAD
     --custom-background-image: url("/appearance/themes/Dark+/image/light/background (06).jpeg");
+=======
+    --custom-background-image: url(/appearance/themes/Dark+/image/light/background-main.jpg);
+>>>>>>> e6f273afc590074cd46929f392ad6f3484e200a1
 
     /* 对话框背景图片 */
-    --custom-background-image-dialog: url("/appearance/themes/Dark+/image/light/background (01).jpeg");
+    --custom-background-image-dialog: url(/appearance/themes/Dark+/image/light/background-dialog.jpg);
 
     /* 标签图标 | The icon of tag */
     --custom-span-tag-icon: url(/appearance/themes/Dark+/icon/tag-light.svg);

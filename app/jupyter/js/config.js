@@ -17,6 +17,12 @@ var config = {
         },
         regs: {
             mark: /((?=[\x21-\x7e]+)[^A-Za-z0-9])/g, // 匹配英文符号
+            ANSIesc: /\x1b[^a-zA-Z]*[a-zA-Z]/g, // ANSI 转义序列
+            richtext: /\x1b\\?\[((?:\d+)(?:\\?;\d+)*)m([^\x1b]*)/g, // 控制台富文本控制字符
+            escaped: { // 英文符号转义后的正则
+                mark: /(?:\\((?=[\x21-\x7e])[^A-Za-z0-9]))/g, // 匹配转义的英文符号
+                richtext: /\x1b\\\[((?:\d+)(?:\\;\d+)*)m([^\x1b]*)/g, // 控制台富文本控制字符(被转义)
+            },
         },
         output: {
             init: [ // 输出块初始化内容
@@ -34,6 +40,7 @@ var config = {
                     max: 128, // 图片标题最大长度
                 },
             },
+            ZWS: '\u200B', // 零宽空格
         },
         style: {
             success: 'color: var(--b3-card-success-color); background-color: var(--b3-card-success-background);',
@@ -121,7 +128,7 @@ var config = {
             siyuan: {
                 style: {
                     id: 'app-jupyter-style',
-                    href: '/appearance/themes/Dark+/app/jupyter/css/siyuan.css',
+                    href: '/appearance/themes/Dark+/app/jupyter/css/jupyter.css',
                 },
             }
         },

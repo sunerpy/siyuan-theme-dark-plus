@@ -13,6 +13,9 @@
 #dockRight,
 #dockBottom,
 #status {
+    padding: 0;
+    box-sizing: content-box;
+
     .b3-tooltips {
         /* 边栏按钮 */
         margin: var(--custom-dock-item-margin-width) !important;
@@ -39,9 +42,7 @@
 #toolbar,
 #dockTop,
 #dockBottom,
-#status {
-    height: var(--custom-dock-width);
-}
+#status {}
 
 /* ↑↓ */
 #toolbar,
@@ -58,6 +59,7 @@
 /* 👆👇 */
 #dockTop,
 #dockBottom {
+    height: var(--custom-dock-width);
     padding: 0;
 }
 
@@ -70,34 +72,40 @@
 /* ↑顶部工具栏↑ */
 #toolbar {
     background-color: var(--custom-tool-bar-background-color);
-}
 
-/* 顶部工具栏按钮 */
-div:not(#windowControls)>.toolbar__item {
-    margin: 0 6px;
-    /* border-radius: 1em; */
-}
-
-/* 顶部工具栏标题 */
-#drag {
-    padding: 0 !important;
-}
-
-/* 窗口控件 */
-#windowControls {
-
-    /* margin: 0 !important; */
-    .b3-tooltips {
-        margin: 0 !important;
-        // padding: calc(var(--custom-dock-item-margin-width) + var(--custom-dock-item-padding-width)) !important;
-        padding: var(--custom-dock-item-padding-width) calc(var(--custom-dock-item-margin-width) + var(--custom-dock-item-padding-width)) !important;
-        border-radius: 0 !important;
+    // macOS 系统桌面端窗口控件位置
+    body.body--blur:not(.body--win32) & {
+        padding-left: 69px;
     }
-}
 
-/* 窗口关闭控件 */
-#closeWindow {
-    /* padding-right: 6px; */
+    /* 顶部工具栏按钮 */
+    div:not(#windowControls)>.toolbar__item {
+        margin: 0 6px;
+        /* border-radius: 1em; */
+    }
+
+    /* 顶部工具栏标题 */
+    #drag {
+        padding: 0 !important;
+    }
+
+    /* 窗口控件 */
+    #windowControls {
+        z-index: 196;
+
+        /* margin: 0 !important; */
+        .b3-tooltips {
+            margin: 0 !important;
+            // padding: calc(var(--custom-dock-item-margin-width) + var(--custom-dock-item-padding-width)) !important;
+            padding: var(--custom-dock-item-padding-width) calc(var(--custom-dock-item-margin-width) + var(--custom-dock-item-padding-width)) !important;
+            border-radius: 0 !important;
+        }
+
+        /* 窗口关闭控件 */
+        #closeWindow {
+            /* padding-right: 6px; */
+        }
+    }
 }
 
 /* 被激活的控件 */
@@ -114,6 +122,14 @@ div:not(#windowControls)>.toolbar__item {
 /* ↓底部状态栏↓ */
 
 #status {
+
+    #barDock,
+    #barHelp {
+        .b3-menu {
+            /* 左下右下菜单 */
+            bottom: @tool-height !important;
+        }
+    }
 
     .status__msg,
     .status__counter {

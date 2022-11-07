@@ -1,5 +1,67 @@
 # 更改日志 | CHANGE LOG
 
+- jupyter 控制台富文本使用零宽空格设置边界 | jupyter console rich text uses zero-width spaces to set boundaries.
+- 将 jupyter 的样式配置文件引用添加到 `theme.css` 方便导出 | Add jupyter style config reference to `theme.css` for easy export.
+
+## v1.4.0/2022-11-06
+
+- [v1.3.7 <=> v1.4.0](https:///github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/compare/v1.3.7...v1.4.0)
+- [#145](https://github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/issues/145) 修复设置 `--custom-tab-bar-item-min-width` 后关闭按钮位置问题 | Fixed the issue of closing button position after setting `--custom-tab-bar-item-min-width`.
+- 修复块菜单项有时未显示问题 | Fixed the issue that block menu items sometimes were not displayed.
+- 移除未使用的背景图片 | Removed unused background images.
+- 修复 Web 端页面窗口控件样式问题 | Fixed the issue of window control style on the Web.
+- 添加静态目录图标 | Added static directory icons.
+  - `/snippets/`
+  - `/history/`
+- 在新窗口打开资源支持 `file` 协议资源 | Open resource in new window supports `file` protocol resource.
+- 修复页签栏样式问题 | Fixed the issue of tab bar style.
+- 调整主题 `style` 与 `script` 标签顺序 | Adjusted the order of theme `style` and `script` tags.
+- 修复块引搜索菜单样式 | Fixed the style of block reference search menu.
+- 重构列表辅助线 | Refactored list guide lines.
+- 移除块属性定义的列表辅助线 | Removed list guide lines defined by block attributes.
+- 移除列表脑图视图动画 | Removed list mind map view animation.
+- 优化获取当前焦点方法 | Optimized the method of getting the current focus.
+- 调整滚屏显示样式 | Adjusted the style of scrolling display.
+- 优化完整显示文本功能 | Optimized the full display text function.
+- [#149](https://github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/issues/149)调整列表表格视图单元格样式 | Adjusted the style of list table view cells.
+- 调整移动端侧边面板辅助线样式 | Adjusted the style of side panel guide lines on mobile.
+- jupyter 支持 `text/html` 与 `\r` 输出 | Jupyter supports `text/html` and `\r` output.
+- 修复 jupyter 输出的图片标题显示错误问题 | Fixed the issue of displaying the title of the image output by jupyter incorrectly.
+- 优化 jupyter 输出对控制字符(`\r` & `\b`)的解析 | Optimized the parsing of jupyter output for control characters (`\r` & `\b`).
+- 修复 jupyter 解析 `\r\n` 错误问题 | Fixed the issue of jupyter parsing `\r\n` incorrectly.
+- 添加下划线样式 | Added underline style.
+- 调整超链接悬浮样式 | Adjusted the style of hyperlink hover.
+- jupyter 支持解析 `\e` 输出 | Jupyter supports parsing `\e` output.
+- 优化对 jupyter 富文本输出的解析 | Optimized the parsing of jupyter rich text output.
+- jupyter 输出可选是否解析控制台控制字符 | Jupyter output can optionally parse console control characters.
+- [#152](https://github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/issues/152) 降低窗口空间层级 | Lowered the level of window space.
+- jupyter 输出支持解析 8 位颜色与 24 位颜色 | Jupyter output supports parsing 8-bit colors and 24-bit colors.
+- jupyter 优化基于 MIME 的数据解析 | Jupyter optimizes the parsing of data based on MIME.
+- [#153](https://github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/issues/153) 使用 `theme.js` 加载主题样式文件前判断主题是否为 `Dark+` | Determine whether the theme is `Dark+` before loading the theme style file with `theme.js`.
+- jupyter 调整输出开始与结束分割线位置 | Adjusted the position of the output start and end divider lines.
+
+## v1.3.7/2022-10-27
+
+- [v1.3.6 <=> v1.3.7](https:///github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/compare/v1.3.6...v1.3.7)
+- 调整大纲栏列表辅助线样式 | Adjusted the style of outline panel guides.
+- 关系图背景设置为半透明 | The diagram background is set to semi-transparent.
+- 修复悬浮工具栏折叠展开时的位置问题 | Fixed the position issue when the floating toolbar was collapsed and expanded.
+- [#129](https://github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/issues/129) 调整纵向排序标签页关闭按钮位置 | Adjust the position of the close button for vertical sorting tabs.
+- 调整块滚动条位置 | Adjusted the position of blocks scroll bar.
+- [#130](https://github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/issues/130) 启动时不重置面板展开状态 | The panel expansion state is not reset at startup.
+- [#133](https://github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/issues/133) 修复 macOS 系统窗口控件与工具栏按钮重叠问题 | Fixed the issue of macOS system window controls overlapping toolbar buttons.
+- [#134](https://github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/issues/134) 调整列表脑图视图与表格视图引用数样式 | Adjusted the style issue of list brain map view and table view reference number.
+- 移除`块滚动条跟随滚动`功能 | Remove the feature of `Block scroll bar follow scroll`.
+  - REF: [Issue #4612 · siyuan-note/siyuan](https://github.com/siyuan-note/siyuan/issues/4612)
+- 修复快捷键设置界面列表辅助线样式 | Fixed the list guide style of shortcut key setting interface.
+- 修复全屏关系图工具栏样式异常问题 | Fixed the issue of abnormal toolbar style in full screen diagram.
+- 评论功能兼容 `v2.4.2` | Comment function compatible with `v2.4.2`.
+- 调整移动端侧边面板样式 | Adjusted the style of mobile side panel.
+- 修复列表辅助线样式 | Fixed list guide style.
+
+## v1.3.6/2022-10-21
+
+- [v1.3.5 <=> v1.3.6](https:///github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/compare/v1.3.5...v1.3.6)
 - 调整页签按钮样式 | Adjusted the style of tab bar button.
 - 鼠标移出窗口时结束拖拽 | End dragging when the mouse moves out of the window.
 - 优化鼠标移出窗口时结束拖拽 | Optimized to end dragging when the mouse moves out of the window.
@@ -7,6 +69,11 @@
 - 修复快捷键设置界面列表辅助线样式 | Fixed the list guide style of shortcut key setting interface.
 - 保存悬浮工具栏的位置与状态 | Save the position and state of the floating toolbar.
 - 修复悬浮工具栏折叠展开时的位置问题 | Fixed the position issue when the floating toolbar was collapsed and expanded.
+- 适配 `v2.4.2` | Adaptive `v2.4.2`.
+- 调整面包屑样式 | Adjusted the style of breadcrumb.
+- 调整代码块样式 | Adjusted the style of code block.
+- 调整页签图标样式 | Adjusted the style of tab icon.
+- 调整嵌入块样式 | Adjusted the style of embed block.
 
 ## v1.3.5/2022-10-17
 

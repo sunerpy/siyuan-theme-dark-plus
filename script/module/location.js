@@ -6,6 +6,7 @@ import {
     saveCustomFile,
 } from './config.js';
 import { jump } from './../utils/misc.js';
+import { compareVersion } from './../utils/string.js';
 import { globalEventHandler } from './../utils/listener.js';
 import {
     isKey,
@@ -14,6 +15,7 @@ import {
 import {
     getFocusedBlock,
     getFocusedDocID,
+    getTargetEditor,
     getTargetBlockIndex,
     setBlockDOMAttrs,
     setBlockSlider,
@@ -33,8 +35,8 @@ var record_enable = false;
  * 更新 index 值
  */
 async function updateBlockSlider() {
-    let block = getFocusedBlock(); // 当前光标所在块
-    let top = await getTargetBlockIndex(block); // 获得焦点所在顶层块
+    const block = getFocusedBlock(); // 当前光标所在块
+    const top = await getTargetBlockIndex(block); // 获得焦点所在顶层块
     // console.log(block, top);
     if (block && top) {
         setBlockSlider(top.index, top.scroll, top.offset); // 设置滑块位置
@@ -45,10 +47,11 @@ async function updateBlockSlider() {
     }
     return null;
 }
+
 /**
- * 目标处理函数
+ * 更新块滚动条
  */
-async function focusHandler(target, mode = config.theme.location.record.mode) {
+async function updateSliderHandler(target, mode = config.theme.location.record.mode) {
     if (target
         && (target.classList.contains('protyle-scroll')
             || target.classList.contains('b3-slider')
@@ -69,6 +72,28 @@ async function focusHandler(target, mode = config.theme.location.record.mode) {
     }
 }
 
+/**
+ * 处理焦点事件
+ */
+async function focusHandler(e) {
+    // console.log(e);
+    /* 取消当前编辑区 */
+    const block = getFocusedBlock(); // 当前光标所在块
+    /* 当前块已经设置焦点 */
+    if (block?.classList.contains(config.theme.location.focus.className)
+        && block.id === config.theme.location.focus.id
+    ) return;
+
+    /* 当前块未设置焦点 */
+    const editor = getTargetEditor(block); // 当前光标所在块位于的编辑区
+    if (editor) {
+        editor.querySelectorAll(`.${config.theme.location.focus.className}`).forEach(element => element.classList.remove(config.theme.location.focus.className));
+        document.querySelectorAll(`#${config.theme.location.focus.id}`).forEach(element => element.removeAttribute('id'));
+
+        block.classList.add(config.theme.location.focus.className);
+        block.id = config.theme.location.focus.id;
+    }
+}
 
 /**
  * 跳转到浏览位置
@@ -139,7 +164,8 @@ function record(docID, value, mode = config.theme.location.record.mode) {
 
             case 2: // 保存在文档块属性中
                 const ATTRS = { [config.theme.location.record.attribute]: value };
-                setBlockDOMAttrs(docID, ATTRS);
+                if (compareVersion(window.theme.kernelVersion, '2.2.0') < 0)
+                    setBlockDOMAttrs(docID, ATTRS);
                 setBlockAttrs(docID, ATTRS);
                 break;
             default:
@@ -177,7 +203,8 @@ function clear(mode = config.theme.location.record.mode) {
                     break;
                 case 2: // 保存在文档块属性中
                     const ATTRS = { [config.theme.location.record.attribute]: '' };
-                    setBlockDOMAttrs(DOC_ID, ATTRS);
+                    if (compareVersion(window.theme.kernelVersion, '2.2.0') < 0)
+                        setBlockDOMAttrs(DOC_ID, ATTRS);
                     setBlockAttrs(DOC_ID, ATTRS);
                     break;
                 default:
@@ -206,10 +233,14 @@ setTimeout(() => {
                     // 编辑器可能还没有加载完成, 所以需要轮询
                     try {
                         getEditor((editor) => {
-                            if (config.theme.location.slider.follow.enable) {
-                                // 滑块跟踪鼠标点击的块
-                                editor.addEventListener('click', e => setTimeout(async () => focusHandler(e.target), 0));
+                            // REF [块滚动条跟随滚动 · Issue #4612 · siyuan-note/siyuan](https://github.com/siyuan-note/siyuan/issues/4612)
+                            if (compareVersion(window.theme.kernelVersion, '2.4.5') <= 0) {
+                                if (config.theme.location.slider.follow.enable) {
+                                    // 滑块跟踪鼠标点击的块
+                                    editor.addEventListener('click', e => setTimeout(async () => updateSliderHandler(e.target), 0));
+                                }
                             }
+
 
                             if (config.theme.location.slider.goto.enable) {
                                 // 跳转浏览进度
@@ -227,6 +258,11 @@ setTimeout(() => {
                     };
                 }
                 setTimeout(fn, 0);
+            }
+            if (config.theme.location.focus.enable) {
+                // 跟踪当前所在块
+                window.addEventListener('mouseup', focusHandler, true);
+                window.addEventListener('keyup', focusHandler, true);
             }
             if (config.theme.location.record.enable) {
                 // 开关浏览位置记录功能
