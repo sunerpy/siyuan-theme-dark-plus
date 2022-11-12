@@ -2,6 +2,17 @@
 
 - jupyter 控制台富文本使用零宽空格设置边界 | jupyter console rich text uses zero-width spaces to set boundaries.
 - 将 jupyter 的样式配置文件引用添加到 `theme.css` 方便导出 | Add jupyter style config reference to `theme.css` for easy export.
+- jupyter 运行阻塞时块序号设置为 `*` | jupyter block number set to `*` when running is blocked.
+- 为文档块菜单添加 jupyter `重启内核` 菜单项 | Add jupyter `Restart Kernel` menu item to document block menu.
+- 为文档块菜单添加 jupyter `运行所有单元格` 菜单项 | Add jupyter Run All Cells` menu item to document block menu.
+- [#154](https://github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/issues/154) 调整表格单元格边框颜色 | Adjust table cell border color.
+  - 添加 CSS 自定义变量 `--custom-block-table-cell-border-color` | Add CSS custom variable `--custom-block-table-cell-border-color`.
+- 双击 `iframe 块` / `挂件块`全屏显示块内容 | Double click `iframe block` / `widget block` to display block content in full screen.
+- 调整折叠的列表项的样式 | Adjust the style of the folded list item.
+  - REF: https://ld246.com/article/1668079616719/comment/1668156458492?r=shuoying#comments
+- 双击块标全屏显示该块 | Double click the block mark to display the block in full screen.
+- 调整渲染块全屏模式时的样式 | Adjust the style when rendering the block in full screen mode.
+- 为块全屏显示模式添加滚动条 | Add scroll bar to block full screen display mode.
 
 ## v1.4.0/2022-11-06
 

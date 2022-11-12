@@ -270,6 +270,16 @@ export var config = {
                 enable: true, // 是否启用 iframe 重新加载
             },
         },
+        fullscreen: {
+            // 全屏
+            enable: true, // 是否启用全屏
+            iframe: {
+                enable: true, // 是否启用 iframe/widgets/video 全屏
+            },
+            mark: {
+                enable: true, // 是否开启双击块标全屏某个块
+            },
+        },
         doc: {
             enable: true, // 是否启用文档扩展功能
             heading: { // 标题操作
@@ -1095,6 +1105,106 @@ export var config = {
                             },
                             {
                                 enable: true,
+                                type: { NodeDocument: { enable: true } },
+                                mode: "button",
+                                icon: "#iconRefresh",
+                                label: {
+                                    zh_CN: "重启内核",
+                                    other: "Restart Kernel",
+                                },
+                                click: {
+                                    enable: true,
+                                    callback: null,
+                                    tasks: [
+                                        {
+                                            type: 'jupyter-restart-kernel',
+                                            params: {},
+                                        },
+                                    ],
+                                },
+                            },
+                            {
+                                enable: true,
+                                type: { NodeDocument: { enable: true } },
+                                mode: "button",
+                                icon: "#iconPlay",
+                                label: {
+                                    zh_CN: "运行所有单元格 (转义输出: ✔ 控制字符: ✔)",
+                                    other: "Run All Cells (Escape: ✔ cntrl: ✔)",
+                                },
+                                click: {
+                                    enable: true,
+                                    callback: null,
+                                    tasks: [
+                                        {
+                                            type: 'jupyter-run-all-cells',
+                                            params: { escaped: true, cntrl: true },
+                                        },
+                                    ],
+                                },
+                            },
+                            {
+                                enable: true,
+                                type: { NodeDocument: { enable: true } },
+                                mode: "button",
+                                icon: "#iconPlay",
+                                label: {
+                                    zh_CN: "运行所有单元格 (转义输出: ✔ 控制字符: ✖)",
+                                    other: "Run All Cells (Escape: ✔ cntrl: ✖)",
+                                },
+                                click: {
+                                    enable: true,
+                                    callback: null,
+                                    tasks: [
+                                        {
+                                            type: 'jupyter-run-all-cells',
+                                            params: { escaped: true, cntrl: false },
+                                        },
+                                    ],
+                                },
+                            },
+                            {
+                                enable: true,
+                                type: { NodeDocument: { enable: true } },
+                                mode: "button",
+                                icon: "#iconPlay",
+                                label: {
+                                    zh_CN: "运行所有单元格 (转义输出: ✖ 控制字符: ✔)",
+                                    other: "Run All Cells (Escape: ✖ cntrl: ✔)",
+                                },
+                                click: {
+                                    enable: true,
+                                    callback: null,
+                                    tasks: [
+                                        {
+                                            type: 'jupyter-run-all-cells',
+                                            params: { escaped: false, cntrl: true },
+                                        },
+                                    ],
+                                },
+                            },
+                            {
+                                enable: true,
+                                type: { NodeDocument: { enable: true } },
+                                mode: "button",
+                                icon: "#iconPlay",
+                                label: {
+                                    zh_CN: "运行所有单元格 (转义输出: ✖ 控制字符: ✖)",
+                                    other: "Run All Cells (Escape: ✖ cntrl: ✖)",
+                                },
+                                click: {
+                                    enable: true,
+                                    callback: null,
+                                    tasks: [
+                                        {
+                                            type: 'jupyter-run-all-cells',
+                                            params: { escaped: false, cntrl: false },
+                                        },
+                                    ],
+                                },
+                            },
+                            {
+                                enable: true,
                                 type: { NodeCodeBlock: { enable: true, subtype: { null: true } } },
                                 mode: "button",
                                 icon: "#iconPlay",
@@ -1107,7 +1217,7 @@ export var config = {
                                     callback: null,
                                     tasks: [
                                         {
-                                            type: 'jupyter-run-code',
+                                            type: 'jupyter-run-cell',
                                             params: { escaped: true, cntrl: true },
                                         },
                                     ],
@@ -1127,7 +1237,7 @@ export var config = {
                                     callback: null,
                                     tasks: [
                                         {
-                                            type: 'jupyter-run-code',
+                                            type: 'jupyter-run-cell',
                                             params: { escaped: true, cntrl: false },
                                         },
                                     ],
@@ -1147,7 +1257,7 @@ export var config = {
                                     callback: null,
                                     tasks: [
                                         {
-                                            type: 'jupyter-run-code',
+                                            type: 'jupyter-run-cell',
                                             params: { escaped: false, cntrl: true },
                                         },
                                     ],
@@ -1167,7 +1277,7 @@ export var config = {
                                     callback: null,
                                     tasks: [
                                         {
-                                            type: 'jupyter-run-code',
+                                            type: 'jupyter-run-cell',
                                             params: { escaped: false, cntrl: false },
                                         },
                                     ],
@@ -1639,6 +1749,27 @@ export var config = {
                             },
                             {
                                 enable: true,
+                                type: null,
+                                mode: "button",
+                                icon: "#iconFullscreen",
+                                label: {
+                                    zh_CN: "全屏显示",
+                                    other: "Full-screen Display",
+                                },
+                                accelerator: () => config.theme.hotkeys.fullscreen.iframe,
+                                click: {
+                                    enable: true,
+                                    callback: null,
+                                    tasks: [
+                                        {
+                                            type: 'full-screen',
+                                            params: {},
+                                        },
+                                    ],
+                                },
+                            },
+                            {
+                                enable: true,
                                 type: {
                                     NodeDocument: { enable: true },
                                     NodeBlockQueryEmbed: { enable: true },
@@ -2025,7 +2156,7 @@ export var config = {
                                 mode: "separator",
                             },
                             {
-                                enable: false,
+                                enable: false, // deprecated
                                 type: {
                                     NodeBlockQueryEmbed: { enable: true },
                                 },
@@ -2401,13 +2532,33 @@ export var config = {
                     key: 'F5',
                 },
                 iframe: {
-                    // 刷新 iframe 块(Ctrl + 单击)
+                    // 刷新 iframe/widgets 块 (Ctrl + 单击)
                     enable: true,
                     CtrlCmd: true,
                     WinCtrl: false,
                     Shift: false,
                     Alt: false,
                     type: 'click',
+                },
+            },
+            fullscreen: {
+                iframe: {
+                    // 全屏 iframe/widgets 块 (双击)
+                    enable: true,
+                    CtrlCmd: false,
+                    WinCtrl: false,
+                    Shift: false,
+                    Alt: false,
+                    type: 'dblclick',
+                },
+                mark: {
+                    // 全屏指定块 (双击块标)
+                    enable: true,
+                    CtrlCmd: false,
+                    WinCtrl: false,
+                    Shift: false,
+                    Alt: false,
+                    type: 'dblclick',
                 },
             },
             doc: {
