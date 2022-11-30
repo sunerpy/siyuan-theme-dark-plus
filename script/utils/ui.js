@@ -26,9 +26,15 @@ import {
     setTooltipDirection,
     requestFullscreen,
 } from './dom.js';
-import { Iterator } from './misc.js';
+import {
+    Iterator,
+    fileSelect,
+} from './misc.js';
 import { drag } from './drag.js';
-import { compareVersion } from './string.js';
+import {
+    removeOuterIAL,
+    compareVersion,
+} from './string.js';
 import {
     sql,
     getBlockBreadcrumb,
@@ -36,20 +42,73 @@ import {
     getBlockAttrs,
     getBlockIndex,
     setBlockAttrs,
+    getBlockKramdown,
     pushMsg,
     pushErrMsg,
 } from './api.js';
 
-import {
-    getConf,
-    runCell,
-    restartKernel,
-    closeConnection,
-} from '/appearance/themes/Dark+/app/jupyter/js/run.js';
+// const jupyterConfig = getConf();
+// REF [Web Workers API - Web API 接口参考 | MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/Web_Workers_API)
+const jupyterWorker = new Worker(
+    '/appearance/themes/Dark+/app/jupyter/js/run.js',
+    {
+        type: 'module',
+        name: 'ui',
+    },
+);
+const jupyterImportWorker = new Worker(
+    '/appearance/themes/Dark+/app/jupyter/js/import.js',
+    {
+        type: 'module',
+        name: 'ui',
+    },
+);
 
-const jupyterConf = getConf();
+var jupyterConfig;
+
+/* worker 错误捕获 */
+const worker_error_handler = e => {
+    console.error(e);
+};
+
+jupyterWorker.addEventListener('error', worker_error_handler);
+jupyterWorker.addEventListener('messageerror', worker_error_handler);
+
+jupyterImportWorker.addEventListener('error', worker_error_handler);
+jupyterImportWorker.addEventListener('messageerror', worker_error_handler);
+
+jupyterWorker.addEventListener('message', e => {
+    // console.log(e);
+    const data = JSON.parse(e.data);
+    switch (data.type) {
+        case 'call':
+            switch (data.handle) {
+                case 'getConf':
+                    jupyterConfig = data.return;
+                    break;
+                default:
+                    break;
+            }
+            break;
+        default:
+            break;
+    }
+});
+
+
+jupyterWorker.postMessage(JSON.stringify({
+    type: 'call',
+    handle: 'getConf',
+    params: [],
+}));
+jupyterWorker.postMessage(JSON.stringify({
+    type: 'call',
+    handle: 'setLang',
+    params: [window.theme.languageMode],
+}));
+
 var toolbarItemList = [];
-
+var toolbar_timeout_id = null; // 工具栏延时显示定时器
 /**
  * 重置节点, 可所有监听器
  * @node (HTMLElementNode): DOM 节点
@@ -117,10 +176,11 @@ function itemStateLoad(id, states, node) {
 function toolbarItemListPush(item) {
     toolbarItemList.push(item);
     const toolbar = document.getElementById('toolbar');
-    const windowControls = document.getElementById('windowControls');
-    var custom_toolbar = document.getElementById(config.theme.toolbar.id);
 
     if (window.theme.clientMode !== 'mobile' && toolbar) {
+        const windowControls = document.getElementById('windowControls');
+        var custom_toolbar = document.getElementById(config.theme.toolbar.id);
+
         if (!custom_toolbar) {
             /* 自定义工具栏按钮的容器 */
             custom_toolbar = document.createElement('div');
@@ -349,6 +409,7 @@ function toolbarItemListPush(item) {
                 if (position) {
                     float(); // 悬浮
                     if (!conf.fold) more.dispatchEvent(new Event('dblclick')); // 展开
+
                     /* 设置位置 */
                     custom_tooldock.style.left = position.left;
                     custom_tooldock.style.right = position.right;
@@ -358,16 +419,30 @@ function toolbarItemListPush(item) {
                     custom_tooldock.style.height = position.height;
                 }
             }
+
         }
 
-        /* 工具栏按钮排序 */
-        toolbarItemList = toolbarItemList.sort((a, b) => a.index - b.index);
-        for (let item of toolbarItemList) {
-            if (item.display) {
-                let node = document.getElementById(item.id);
-                custom_toolbar.append(node || item.node);
+        /* 重新计时 */
+        clearTimeout(toolbar_timeout_id);
+        toolbar_timeout_id = setTimeout(() => {
+            /* 工具栏按钮排序 */
+            toolbarItemList = toolbarItemList.sort((a, b) => a.index - b.index);
+            for (let item of toolbarItemList) {
+                if (item.display) {
+                    let node = document.getElementById(item.id);
+                    custom_toolbar.append(node || item.node);
+                }
             }
-        }
+
+            const custom_tooldock = document.getElementById(config.theme.tooldock.id);
+            if (custom_tooldock) {
+                /* 调整提示标签 */
+                setTooltipDirection(
+                    getTooltipDirection,
+                    ...custom_tooldock.querySelectorAll('.toolbar__item'),
+                );
+            }
+        }, config.theme.toolbar.delay);
     }
 
     /* 恢复保存的状态 */
@@ -851,6 +926,13 @@ const TASK_HANDLER = {
         else
             editDocKramdown(id);
     },
+    /* 选择文件 */
+    'file-select': async (e, id, params) => {
+        fileSelect(params.accept, params.multiple).then(files => {
+            params.files = files;
+            TASK_HANDLER?.[params.callback](e, id, params);
+        });
+    },
     /* 保存输入框内容 */
     'save-input-value': async (e, id, params) => {
         const value = document.getElementById(params.id).value;
@@ -858,16 +940,31 @@ const TASK_HANDLER = {
         saveCustomFile(custom);
     },
     /* 处理输入框内容 */
-    'handle-input-value': async (e, id, params) => params.handler(e, id, params),
+    'handler': async (e, id, params) => params.handler(e, id, params),
     /* 关闭会话 */
-    'jupyter-close-connection': closeConnection,
+    // 'jupyter-close-connection': closeConnection,
+    'jupyter-close-connection': async (...args) => jupyterWorker.postMessage(JSON.stringify({
+        type: 'call',
+        handle: 'closeConnection',
+        params: args,
+    })),
     /* 重启内核 */
-    'jupyter-restart-kernel': restartKernel,
+    // 'jupyter-restart-kernel': restartKernel,
+    'jupyter-restart-kernel': async (...args) => jupyterWorker.postMessage(JSON.stringify({
+        type: 'call',
+        handle: 'restartKernel',
+        params: args,
+    })),
     /* 运行单元格 */
-    'jupyter-run-cell': runCell,
+    // 'jupyter-run-cell': runCell,
+    'jupyter-run-cell': async (...args) => jupyterWorker.postMessage(JSON.stringify({
+        type: 'call',
+        handle: 'runCell',
+        params: args,
+    })),
     /* 运行所有单元格 */
     'jupyter-run-all-cells': async (e, id, params) => {
-        const stmt = `SELECT a.block_id FROM attributes AS a WHERE a.root_id = '${id}' AND a.name = '${jupyterConf.jupyter.attrs.code.type.key}' AND a.value = '${jupyterConf.jupyter.attrs.code.type.value}';`;
+        const stmt = `SELECT a.block_id FROM attributes AS a WHERE a.root_id = '${id}' AND a.name = '${jupyterConfig.jupyter.attrs.code.type.key}' AND a.value = '${jupyterConfig.jupyter.attrs.code.type.value}';`;
         const rows = await sql(stmt);
         if (rows && rows.length > 0) {
             for (let i = 0; i < rows.length; ++i) {
@@ -876,12 +973,28 @@ const TASK_HANDLER = {
                 rows[i].index = index;
             }
             rows.sort((a, b) => a.index - b.index);
-            const call = async i => {
-                if (i < rows.length)
-                    runCell(e, rows[i].block_id, params, async _ => call(i + 1));
-            };
-            call(0);
+            const IDs = rows.map(row => row.block_id);
+
+            jupyterWorker.postMessage(JSON.stringify({
+                type: 'call',
+                handle: 'runCells',
+                params: [
+                    e,
+                    IDs,
+                    params,
+                ],
+            }));
         }
+    },
+    /* 导入 *.ipynb */
+    'jupyter-import-ipynb': async (e, id, params) => {
+        /* 读取并解析 ipynb */
+        const ipynb = await params.files[0].text();
+        jupyterImportWorker.postMessage(JSON.stringify({
+            type: 'call',
+            handle: 'importJson',
+            params: [id, ipynb, params.mode],
+        }));
     },
     /* 归档页签 */
     'tab-archive': async (e, id, params) => {

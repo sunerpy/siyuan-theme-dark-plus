@@ -6,8 +6,11 @@ import {
     merge,
     getRelativePath,
     copyToClipboard,
+    removeOuterIAL,
+    compareVersion,
 } from './js/utils.js';
 import {
+    version,
     queryBlock,
     getFullHPathByID,
     exportMdContent,
@@ -22,13 +25,19 @@ import {
 } from './js/api.js';
 
 async function init(params) {
-    // 设置界面字体
-    params.fontFamily = document.body.style.fontFamily = params.fontFamily.concat(config.editor.UI.fontFamily).join(',');
-
     let r; // 响应
     let b; // 块
     let n; // 笔记本
     let t; // 临时
+
+    // 设置界面字体
+    params.fontFamily = document.body.style.fontFamily = params.fontFamily.concat(config.editor.UI.fontFamily).join(',');
+
+    // 获得内核版本
+    r = await version();
+    console.assert(r?.code === 0, '获取内核信息失败');
+    params.version = r.data;
+
     switch (params.mode) {
         case 'history': // 历史文档
             // 获取文档路径
@@ -78,7 +87,10 @@ async function init(params) {
                     // r = await getBlockDomByID(params.id);
                     // r = await getDoc(params.id);
                     if (r && r.code === 0) {
-                        params.value.modified = r.data.kramdown;
+                        // REF: [使用 API `/api/block/getBlockKramdown` 查询时返回 IAL · Issue #6670 · siyuan-note/siyuan](https://github.com/siyuan-note/siyuan/issues/6670)
+                        params.value.modified = compareVersion(params.version, '2.5.1') >= 0
+                            ? removeOuterIAL(r.data.kramdown)
+                            : r.data.kramdown;
                         // params.value.modified = window.editor.lute.BlockDOM2Md(r.data.blocks[0].content);
                         // params.value.modified = window.editor.lute.BlockDOM2Md(r.data.content);
                     }
@@ -93,7 +105,6 @@ async function init(params) {
 
             params.language = 'markdown';
             params.tabSize = 2;
-            params.IStandaloneEditorConstructionOptions.copyWithSyntaxHighlighting = false;
 
             params.breadcrumb.set(
                 `${config.editor.mark.history}${config.editor.MAP.LABELS.mode[params.mode][params.lang] || config.editor.MAP.LABELS.mode[params.mode].default}`,
@@ -110,7 +121,6 @@ async function init(params) {
                 params.value = await r.text();
                 params.language = 'markdown';
                 params.tabSize = 2;
-                params.IStandaloneEditorConstructionOptions.copyWithSyntaxHighlighting = false;
                 let typeText, hpathText, typeTitle, hpathTitle, blockHref, docHref;
                 try {
                     const url = new URL(params.url);
@@ -322,23 +332,50 @@ async function init(params) {
                 case 'audio':
                 case 'widget':
                 case 'iframe':
-                    params.mode = 'html';
-                    params.value = b.markdown;
-                    params.language = 'html';
+                    switch (params.type) {
+                        case 'kramdown':
+                            r = await getBlockKramdown(b.id);
+                            if (r && r.code === 0) {
+                                params.value = r.data.kramdown;
+                                params.mode = 'leaf';
+                                params.language = 'markdown';
+                                break;
+                            }
+                        case 'markdown':
+                        default:
+                            params.type = 'markdown';
+                            params.mode = 'html';
+                            params.value = b.markdown;
+                            params.language = 'html';
+                            break;
+                    }
                     break;
                 case 'query_embed': // 嵌入块
-                    t = config.editor.regs.query.exec(b.markdown);
-                    if (t && t.length === 2) {
-                        params.mode = 'query';
-                        params.value = t[1];
-                        params.language = 'sql';
-                    }
-                    else {
-                        params.mode = 'leaf';
-                        params.value = b.markdown;
-                        params.language = 'markdown';
-                        // params.tabSize = 2;
-                        params.IStandaloneEditorConstructionOptions.copyWithSyntaxHighlighting = false;
+                    switch (params.type) {
+                        case 'kramdown':
+                            r = await getBlockKramdown(b.id);
+                            if (r && r.code === 0) {
+                                params.value = r.data.kramdown;
+                                params.mode = 'leaf';
+                                params.language = 'markdown';
+                                break;
+                            }
+                        case 'markdown':
+                        default:
+                            params.type = 'markdown';
+
+                            t = config.editor.regs.query.exec(b.markdown);
+                            if (t && t.length === 2) {
+                                params.mode = 'query';
+                                params.value = t[1];
+                                params.language = 'sql';
+                            }
+                            else {
+                                params.mode = 'leaf';
+                                params.value = b.markdown;
+                                params.language = 'markdown';
+                            }
+                            break;
                     }
                     break;
                 case 'd': // 文档块
@@ -357,10 +394,12 @@ async function init(params) {
                                 }
                             }
                             else {
-                                // 使用 API /api/block/getBlockKramdown
                                 r = await getBlockKramdown(b.id);
                                 if (r && r.code === 0) {
-                                    params.value = r.data.kramdown;
+                                    // REF: [使用 API `/api/block/getBlockKramdown` 查询时返回 IAL · Issue #6670 · siyuan-note/siyuan](https://github.com/siyuan-note/siyuan/issues/6670)
+                                    params.value = compareVersion(params.version, '2.5.1') >= 0
+                                        ? removeOuterIAL(r.data.kramdown)
+                                        : r.data.kramdown;
                                     break;
                                 }
                             }
@@ -373,6 +412,7 @@ async function init(params) {
                                 return;
                             }
                             else {
+                                params.type = 'markdown';
                                 params.value = r.data.content;
                             }
                             break;
@@ -381,35 +421,95 @@ async function init(params) {
                     params.mode = 'doc';
                     params.language = 'markdown';
                     params.tabSize = 2;
-                    params.IStandaloneEditorConstructionOptions.copyWithSyntaxHighlighting = false;
                     break;
                 case 'c': // 代码块
-                    t = config.editor.regs.code.exec(b.markdown);
-                    if (t && t.length === 2) {
-                        params.mode = 'code';
-                        params.value = b.content;
-                        params.language = t[1];
-                    }
-                    else {
-                        params.mode = 'leaf';
-                        params.value = b.markdown;
-                        params.language = 'markdown';
-                        // params.tabSize = 2;
-                        params.IStandaloneEditorConstructionOptions.copyWithSyntaxHighlighting = false;
+                    switch (params.type) {
+                        case 'kramdown':
+                            r = await getBlockKramdown(b.id);
+                            if (r && r.code === 0) {
+                                params.value = r.data.kramdown;
+                                params.mode = 'leaf';
+                                params.language = 'markdown';
+                                break;
+                            }
+                        case 'markdown':
+                        default:
+                            params.type = 'markdown';
+                            params.value = b.content;
+                            params.mode = 'code';
+
+                            /* 代码块语言 */
+                            t = config.editor.regs.code.exec(b.markdown);
+                            if (t && t.length === 2) {
+                                params.language = t[1];
+                            }
+                            else {
+                                params.language = 'default';
+                            }
+                            break;
                     }
                     break;
                 case 'm': // 公式块
                     params.mode = 'leaf';
-                    params.value = b.markdown;
                     params.language = 'markdown';
-                    params.IStandaloneEditorConstructionOptions.copyWithSyntaxHighlighting = false;
+
+                    switch (params.type) {
+                        case 'kramdown':
+                            r = await getBlockKramdown(b.id);
+                            if (r && r.code === 0) {
+                                params.value = r.data.kramdown;
+                                break;
+                            }
+                        case 'markdown':
+                        default:
+                            params.type = 'markdown';
+                            params.value = b.markdown;
+                            break;
+                    }
                     break;
-                case `h`:
-                case `t`:
-                case `p`:
-                case `tb`:
+                case 'i': // 列表项
+                    switch (params.type) {
+                        case 'kramdown':
+                            r = await getBlockKramdown(b.id);
+                            if (r && r.code === 0) {
+                                params.value = r.data.kramdown;
+                                break;
+                            }
+                        case 'markdown':
+                        default:
+                            params.type = 'markdown';
+                            params.value = b.markdown;
+                            break;
+                    }
+                    params.mode = 'item'
+                    params.language = 'markdown';
+                    params.tabSize = 2;
+                    break;
+                case `h`: // 标题块
+                case `t`: // 表格块
+                case `p`: // 段落块
+                case `tb`: // 分割线
                     // 其他叶子块
+                    switch (params.type) {
+                        case 'kramdown':
+                            r = await getBlockKramdown(b.id);
+                            if (r && r.code === 0) {
+                                params.value = r.data.kramdown;
+                                break;
+                            }
+                        case 'markdown':
+                        default:
+                            params.type = 'markdown';
+                            params.value = b.markdown;
+                            break;
+                    }
                     params.mode = 'leaf';
+                    params.language = 'markdown';
+                    params.tabSize = 2;
+                    break;
+                case `b`: // 引述块
+                case `l`: // 列表块
+                case `s`: // 超级块
                 default:
                     // 其他容器块
                     switch (params.type) {
@@ -421,15 +521,13 @@ async function init(params) {
                             }
                         case 'markdown':
                         default:
+                            params.type = 'markdown';
                             params.value = b.markdown;
                             break;
                     }
-                    params.mode = params.mode === 'leaf'
-                        ? 'leaf'
-                        : 'container';
+                    params.mode = 'container';
                     params.language = 'markdown';
                     params.tabSize = 2;
-                    params.IStandaloneEditorConstructionOptions.copyWithSyntaxHighlighting = false;
                     break;
             }
             // params.value = `${b.markdown}\n${b.ial}`;
@@ -640,49 +738,92 @@ window.onload = () => {
                 async function save() {
                     // 保存文件
                     let response;
+                    // REF: [数据库 `markdown` 字段与 API `getBlockKramdown` 中行级元素 IAL 前存在零宽空格 · Issue #6712 · siyuan-note/siyuan](https://github.com/siyuan-note/siyuan/issues/6712)
+                    const content = compareVersion(window.editor.params.version, '2.5.1') <= 0
+                        ? window.editor.editor.getValue().replaceAll('**\u200b{:', '**{:')
+                        : window.editor.editor.getValue();
+
                     switch (window.editor.params.mode) {
                         case 'web':
                         case 'inbox':
-                            response = await saveAsFile(window.editor.editor.getValue(), window.editor.params.filename || undefined);
+                            response = await saveAsFile(content, window.editor.params.filename || undefined);
                             break;
                         case 'local':
                             response = await putFile(
                                 window.editor.params.path,
-                                window.editor.editor.getValue(),
+                                content,
                             ).then(() => config.editor.command.SAVED());
                             break;
                         case 'assets':
                             response = await putFile(
                                 window.editor.params.path,
-                                window.editor.editor.getValue(),
+                                content,
                             );
                             break;
                         case 'query':
                             response = await updateBlock(
                                 window.editor.params.id,
-                                `\{\{${window.editor.editor.getValue().trim()}\}\}\n${window.editor.params.block.ial}`,
+                                `\{\{${content.trim()}\}\}\n${window.editor.params.block.ial}`,
                             );
                             break;
                         case 'code':
                             response = await updateBlock(
                                 window.editor.params.id,
-                                `\`\`\`${window.editor.params.language}\n${window.editor.editor.getValue()}\n\`\`\`\n${window.editor.params.block.ial}`,
+                                `\`\`\`${window.editor.params.language}\n${content}\n\`\`\`\n${window.editor.params.block.ial}`,
                             );
                             break;
+                        case 'item':
                         case 'doc':
                         case 'history':
-                            response = await updateBlock(
-                                window.editor.params.id,
-                                window.editor.editor.getValue(),
-                            );
+                            switch (window.editor.params.type) {
+                                case 'kramdown':
+                                    response = await updateBlock(
+                                        window.editor.params.id,
+                                        content,
+                                    );
+                                    break;
+                                case 'markdown':
+                                default:
+                                    break;
+                            }
                             break;
                         case 'html':
                         case 'leaf':
+                            switch (window.editor.params.type) {
+                                case 'kramdown':
+                                    response = await updateBlock(
+                                        window.editor.params.id,
+                                        content,
+                                    );
+                                    break;
+                                case 'markdown':
+                                    response = await updateBlock(
+                                        window.editor.params.id,
+                                        `${content.trim()}\n${window.editor.params.block.ial}`,
+                                    );
+                                default:
+                                    break;
+                            }
                         case 'container':
-                            response = await updateBlock(
-                                window.editor.params.id,
-                                `${window.editor.editor.getValue().trim()}\n${window.editor.params.block.ial}`,
-                            );
+                            switch (window.editor.params.type) {
+                                case 'kramdown':
+                                    let data;
+                                    if (compareVersion(window.editor.params.version, '2.5.1') >= 0) {
+                                        // REF: [使用 API `/api/block/getBlockKramdown` 查询时返回 IAL · Issue #6670 · siyuan-note/siyuan](https://github.com/siyuan-note/siyuan/issues/6670)
+                                        data = content;
+                                    }
+                                    else {
+                                        data = `${content.trim()}\n${window.editor.params.block.ial}`;
+                                    }
+                                    response = await updateBlock(
+                                        window.editor.params.id,
+                                        data,
+                                    );
+                                    break;
+                                case 'markdown':
+                                default:
+                                    break;
+                            }
                             break;
                         case 'none':
                         default:
@@ -753,12 +894,15 @@ window.onload = () => {
                         }
                     }, // 点击后执行的操作
                 });
-                if (!(window.editor.params.type === 'markdown'
-                    && (
-                        window.editor.params.mode === 'doc'
-                        || window.editor.params.mode === 'container'
-                        || window.editor.params.mode === 'history'
-                    ))) { // 容器块以 markdown 模式无法保存
+                if (!( // 不能保存的情况
+                    window.editor.params.type === 'markdown' // markdown 类型
+                    && ( // 容器块
+                        window.editor.params.mode === 'doc' // 文档块
+                        || window.editor.params.mode === 'history' // 历史文档
+                        || window.editor.params.mode === 'item' // 列表项块
+                        || window.editor.params.mode === 'container' // 其他容器块
+                    )
+                )) { // markdown 类型的容器块无法保存
                     window.editor.editor.addAction({ // 保存
                         id: '18730D32-5451-4102-B299-BE281BA929B9', // 菜单项 id
                         label: config.editor.MAP.LABELS.save[window.editor.params.lang]

@@ -64,6 +64,7 @@ export var config = {
         toolbar: {
             // 工具栏
             id: 'custom-toolbar', // 工具栏 ID
+            delay: 250, // 延迟显示工具栏的时间
             more: {
                 id: 'custom-toolbar-more',
                 enable: true,
@@ -572,17 +573,30 @@ export var config = {
                         index: 5,
                     },
                     random: true, // 是否随机切换网络背景图片 URL
-                    light: [ // 随机亮色背景图片 URL
-                        'https://source.unsplash.com/random/1920x1080/?bright',
-                        'https://api.dujin.org/bing/1920.php',
-                        'https://unsplash.it/1920/1080?random',
-                        // 'https://api.ixiaowai.cn/gqapi/gqapi.php⁠⁠⁠⁠⁠⁠',
-                    ],
-                    dark: [ // 随机暗色背景图片 URL
-                        'https://source.unsplash.com/random/1920x1080/?night',
-                        'https://source.unsplash.com/random/1920x1080/?starry',
-                        'https://source.unsplash.com/random/1920x1080/?dark',
-                    ],
+                    landscape: { // 横屏背景图片
+                        light: [ // 随机亮色背景图片 URL
+                            'https://source.unsplash.com/random/1920x1080/?bright',
+                            'https://api.dujin.org/bing/1920.php',
+                            'https://unsplash.it/1920/1080?random',
+                            // 'https://api.ixiaowai.cn/gqapi/gqapi.php⁠⁠⁠⁠⁠⁠',
+                        ],
+                        dark: [ // 随机暗色背景图片 URL
+                            'https://source.unsplash.com/random/1920x1080/?night',
+                            'https://source.unsplash.com/random/1920x1080/?starry',
+                            'https://source.unsplash.com/random/1920x1080/?dark',
+                        ],
+                    },
+                    portrait: { // 竖屏背景图片
+                        light: [
+                            'https://source.unsplash.com/random/1080x1920/?bright',
+                            'https://unsplash.it/1080/1920?random',
+                        ],
+                        dark: [
+                            'https://source.unsplash.com/random/1080x1920/?night',
+                            'https://source.unsplash.com/random/1080x1920/?starry',
+                            'https://source.unsplash.com/random/1080x1920/?dark',
+                        ],
+                    },
                 },
                 custom: {
                     enable: true, // 自定义背景图片
@@ -600,14 +614,26 @@ export var config = {
                     },
                     random: true, // 是否随机选择自定义背景图片
                     default: false, // 是否默认使用自定义背景图片
-                    light: [ // 自定义亮色背景图片 URL 列表
-                        `${THEME_PATHNAME}/image/light/background-main.jpg`,
-                        `${THEME_PATHNAME}/image/light/background-dialog.jpg`,
-                    ],
-                    dark: [ // 自定义暗色背景图片 URL 列表
-                        `${THEME_PATHNAME}/image/dark/background-main.jpg`,
-                        `${THEME_PATHNAME}/image/dark/background-dialog.jpg`,
-                    ],
+                    landscape: { // 横屏背景图片
+                        light: [ // 自定义亮色背景图片 URL 列表
+                            `${THEME_PATHNAME}/image/light/background-main.jpg`,
+                            `${THEME_PATHNAME}/image/light/background-dialog.jpg`,
+                        ],
+                        dark: [ // 自定义暗色背景图片 URL 列表
+                            `${THEME_PATHNAME}/image/dark/background-main.jpg`,
+                            `${THEME_PATHNAME}/image/dark/background-dialog.jpg`,
+                        ],
+                    },
+                    portrait: { // 竖屏背景图片
+                        light: [ // 自定义亮色背景图片 URL 列表
+                            `${THEME_PATHNAME}/image/light/background-main-portrait.jpg`,
+                            `${THEME_PATHNAME}/image/light/background-dialog.jpg`,
+                        ],
+                        dark: [ // 自定义暗色背景图片 URL 列表
+                            `${THEME_PATHNAME}/image/dark/background-main-portrait.jpg`,
+                            `${THEME_PATHNAME}/image/dark/background-dialog.jpg`,
+                        ],
+                    },
                 },
             },
         },
@@ -1283,6 +1309,58 @@ export var config = {
                                     ],
                                 },
                             },
+                            {
+                                enable: true,
+                                type: { NodeDocument: { enable: true } },
+                                mode: "button",
+                                icon: "#iconDownload",
+                                accelerator: "*.ipynb",
+                                label: {
+                                    zh_CN: "导入 Jupyter 笔记本 (覆盖)",
+                                    other: "Import Jupyter Notebook (Overwrite)",
+                                },
+                                click: {
+                                    enable: true,
+                                    callback: null,
+                                    tasks: [
+                                        {
+                                            type: 'file-select',
+                                            params: {
+                                                accept: ['.ipynb'], // 选择文件类型
+                                                multiple: false, // 是否允许多选
+                                                mode: 'w', // 覆盖当前文档
+                                                callback: 'jupyter-import-ipynb', // 处理方法
+                                            },
+                                        },
+                                    ],
+                                },
+                            },
+                            {
+                                enable: true,
+                                type: { NodeDocument: { enable: true } },
+                                mode: "button",
+                                icon: "#iconDownload",
+                                accelerator: "*.ipynb",
+                                label: {
+                                    zh_CN: "导入 Jupyter 笔记本 (追加)",
+                                    other: "Import Jupyter Notebook (Append)",
+                                },
+                                click: {
+                                    enable: true,
+                                    callback: null,
+                                    tasks: [
+                                        {
+                                            type: 'file-select',
+                                            params: {
+                                                accept: ['.ipynb'],
+                                                multiple: false,
+                                                mode: 'a', // 在当前文档末尾追加
+                                                callback: 'jupyter-import-ipynb',
+                                            },
+                                        },
+                                    ],
+                                },
+                            },
                         ],
                     },
                     { // 发布设置
@@ -1833,7 +1911,7 @@ export var config = {
                                     NodeTable: { enable: true },
                                 },
                                 mode: "button",
-                                icon: "#iconInsertColumn",
+                                icon: "#iconEdit",
                                 label: {
                                     zh_CN: "切换书写模式",
                                     other: "Toggle Writing Modes",

@@ -1,5 +1,52 @@
 # 更改日志 | CHANGE LOG
 
+- 调整对话框样式 | Adjust dialog style.
+- 调整搜索页签样式 | Adjust search tab style.
+- 调整对话框样式 | Adjust dialog style.
+- 调整反链面板控件样式 | Adjust backlink panel control style.
+- 新增导出样式文件 `export.css` | Added export style file `export.css`.
+- 优化导出样式 | Optimize export style.
+- 添加反馈途径说明 | Add feedback method description.
+
+## v1.5.2/2022-11-29
+
+- [v1.5.1 <=> v1.5.2](https:///github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/compare/v1.5.1...v1.5.2)
+- jupyter 导入工具支持解析 `code` 类型单元块的输入 | jupyter import tool support parsing input of `code` type cell.
+- 移除 monaco 编辑器中行内元素 IAL Token 前的零宽空格 | Remove zero-width space before IAL Token in inline element in monaco editor.
+  - Adapt: [Issue #6712 · siyuan-note/siyuan](https://github.com/siyuan-note/siyuan/issues/6712)
+- 修复 jupyter 对输出中的 `\r` 与 `\b` 控制字符的处理 | Fix jupyter processing of `\r` and `\b` control characters in output.
+- 修复 jupyter 在 Worker 环境无法进行 base64 解码问题 | Fix jupyter base64 decoding problem in Worker environment.
+- 设置 jupyter 输出块字体为等宽字体 | Set jupyter output block font to monospace font.
+- 修复块自定义字体功能 | Fix block custom font feature.
+- 完整实现 `*.ipynb` 解析工具 | Complete implementation of `*.ipynb` parsing tool.
+- [#162](https://github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/issues/162) 修复 macOS 系统桌面端窗口控件重叠问题 | Fix macOS desktop window control overlap problem.
+- 新增 jupyter Notebook (`*.ipynb`) 导入功能 | Add jupyter Notebook (`*.ipynb`) import feature.
+  - 覆盖模式 | Overwrite mode
+    - 导入的内容覆盖当前文档 | Import content overwrites current document.
+  - 追加模式 | Append mode
+    - 导入的内容追加到当前文档末尾 | Import content is appended to the end of the current document.
+- 样式兼容 `v2.5.2` | Style compatible with `v2.5.2`.
+- 调整搜索结果列表样式 | Adjust search result list style.
+
+## v1.5.1/2022-11-24
+
+- [v1.5.0 <=> v1.5.1](https:///github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/compare/v1.5.0...v1.5.1)
+- 优化悬浮工具栏加载速度 | Optimize the loading speed of the floating toolbar.
+- 修复块引用数量标志被块滚动条覆盖问题 | Fix the issue that the block quote number flag is covered by the block scrollbar.
+- 修复悬浮工具栏状态恢复失效问题 | Fix the issue that the floating toolbar state recovery is invalid.
+- jupyter 客户端使用 `Web Workers` 重构 | Refactor the jupyter client using `Web Workers`.
+- 调整块滚动条位置 | Adjust the position of the block scrollbar.
+  - Adapt: [Issue #6588 · siyuan-note/siyuan](https://github.com/siyuan-note/siyuan/issues/6588)
+- 更新自述文档中自定义背景图片集的设置方法 | Updates how to set up a custom background image set in README.
+- 使用 `Less` 重构 `custom-mark-display.css` | Refactored `custom-mark-display.css` with `Less`.
+- jupyter 导入工具支持解析 `raw` 类型单元块 | The jupyter import tool supports parsing `raw` cells.
+- 编辑 kramdown 源代码功能兼容 `v2.5.1` | The editing kramdown source code function is compatible with `v2.5.1`.
+  - Adapt: [Issue #6670 · siyuan-note/siyuan](https://github.com/siyuan-note/siyuan/issues/6670)
+- 编辑 kramdown 源代码功能支持编辑当前块的 IAL | Edit kramdown source code feature supports editing IAL of current block.
+
+## v1.5.0/2022-11-15
+
+- [v1.4.0 <=> v1.5.0](https:///github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/compare/v1.4.0...v1.5.0)
 - jupyter 控制台富文本使用零宽空格设置边界 | jupyter console rich text uses zero-width spaces to set boundaries.
 - 将 jupyter 的样式配置文件引用添加到 `theme.css` 方便导出 | Add jupyter style config reference to `theme.css` for easy export.
 - jupyter 运行阻塞时块序号设置为 `*` | jupyter block number set to `*` when running is blocked.
@@ -13,6 +60,16 @@
 - 双击块标全屏显示该块 | Double click the block mark to display the block in full screen.
 - 调整渲染块全屏模式时的样式 | Adjust the style when rendering the block in full screen mode.
 - 为块全屏显示模式添加滚动条 | Add scroll bar to block full screen display mode.
+- 调整部分按钮图标 | Adjust some button icons.
+- 实现 jupyter 导入的 markdown 单元格解析 | Implement jupyter imported markdown cell parsing.
+- 调整粗体颜色与标题字重 | Adjust bold color and title font weight.
+- 代码块折叠时显示首行 | Display the first line when the code block is folded.
+- 代码块控件栏使用 `sticky` 样式 | Code block control bar uses `sticky` style.
+- 背景图片支持横向背景图片与纵向背景图片 | Background image supports horizontal background image and vertical background image.
+  - `--custom-background-image-landscape`: 横向背景图片 | Horizontal background image.
+  - `--custom-background-image-portrait`: 纵向背景图片 | Vertical background image.
+- 更换背景图片功能支持分别设置航向背景图片与纵向背景图片 | The change background image function supports setting the horizontal background image and vertical background image separately.
+- 调整块滚动条位置 | Adjust block scrollbar position.
 
 ## v1.4.0/2022-11-06
 

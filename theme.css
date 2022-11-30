@@ -53,6 +53,9 @@
 /* 空白页面与空白行 */
 @import url(/appearance/themes/Dark+/style/module/empty.css);
 
+/* 导出面板 */
+@import url(/appearance/themes/Dark+/style/module/export.css);
+
 /* 全屏 */
 @import url(/appearance/themes/Dark+/style/module/fullscreen.css);
 
@@ -95,6 +98,7 @@
 @import url(/appearance/themes/Dark+/style/module/span-mark.css);
 @import url(/appearance/themes/Dark+/style/module/span-ref.css);
 @import url(/appearance/themes/Dark+/style/module/span-s.css);
+@import url(/appearance/themes/Dark+/style/module/span-strong.css);
 @import url(/appearance/themes/Dark+/style/module/span-tag.css);
 @import url(/appearance/themes/Dark+/style/module/span-u.css);
 @import url(/appearance/themes/Dark+/style/module/span-virtual-ref.css);

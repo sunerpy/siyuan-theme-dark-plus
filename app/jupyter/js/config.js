@@ -7,7 +7,7 @@ export {
 import { merge } from './utils.js';
 
 // url
-const url = new URL(window.location.href);
+const url = new URL(location.href);
 
 var config = {
     jupyter: {
@@ -16,12 +16,28 @@ var config = {
             document: '/appearance/themes/Dark+/app/jupyter/settings-document.html',
         },
         regs: {
-            mark: /((?=[\x21-\x7e]+)[^A-Za-z0-9])/g, // 匹配英文符号
+            // mark: /((?=[\x21-\x7e]+)[^A-Za-z0-9])/g, // 匹配英文符号
+            mark: /([\<\>\{\}\[\]\(\)\`\~\#\$\^\*\_\=\|\:\\])/g, // 匹配需转义的英文符号
             ANSIesc: /\x1b[^a-zA-Z]*[a-zA-Z]/g, // ANSI 转义序列
-            richtext: /\x1b\\?\[((?:\d+)(?:\\?;\d+)*)m([^\x1b]*)/g, // 控制台富文本控制字符
+            richtext: /\x1b\\?\[((?:\d*)(?:\\?;\d+)*)m([^\x1b]*)/g, // 控制台富文本控制字符
             escaped: { // 英文符号转义后的正则
-                mark: /(?:\\((?=[\x21-\x7e])[^A-Za-z0-9]))/g, // 匹配转义的英文符号
-                richtext: /\x1b\\\[((?:\d+)(?:\\;\d+)*)m([^\x1b]*)/g, // 控制台富文本控制字符(被转义)
+                // mark: /(?:\\((?=[\x21-\x7e])[^A-Za-z0-9]))/g, // 匹配转义的英文符号
+                mark: /(?:\\([\<\>\{\}\[\]\(\)\`\~\#\$\^\*\_\=\|\:\\]))/g, // 匹配转义的英文符号
+                richtext: /\x1b\\\[((?:\d*)(?:\\?;\d+)*)m([^\x1b]*)/g, // 控制台富文本控制字符(被转义)
+            },
+        },
+        import: { // 导入相关配置
+            fold: {
+                headling: true, // 若标题折叠, 导入后也折叠
+                source: true, // 若内容折叠, 导入后也折叠
+                output: true, // 若输出折叠, 导入后也折叠
+                attrs: { // 折叠属性
+                    fold: '1',
+                },
+            },
+            params: { // 解析参数
+                escaped: true, // 是否转义
+                cntrl: true, // 是否解析控制字符
             },
         },
         output: {
