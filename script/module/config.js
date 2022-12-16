@@ -2468,6 +2468,37 @@ const config = {
                             {
                                 enable: true,
                                 type: {
+                                    NodeDocument: { enable: true },
+                                    NodeList: { enable: true },
+                                    NodeSuperBlock: { enable: true },
+                                    NodeBlockquote: { enable: true },
+                                    NodeBlockQueryEmbed: { enable: true },
+                                },
+                                mode: "button",
+                                icon: "#iconSplitLR",
+                                label: {
+                                    zh_CN: "列表-看板视图",
+                                    zh_CHT: "列表-看板視圖",
+                                    other: "List-Board View",
+                                },
+                                accelerator: "type: board",
+                                click: {
+                                    enable: true,
+                                    callback: null,
+
+                                    tasks: [
+                                        {
+                                            type: 'attr-update',
+                                            params: {
+                                                'custom-type': 'board',
+                                            },
+                                        },
+                                    ],
+                                },
+                            },
+                            {
+                                enable: true,
+                                type: {
                                     NodeTable: { enable: true },
                                 },
                                 mode: "button",
@@ -2972,6 +3003,15 @@ const config = {
                     Shift: true,
                     Alt: true,
                     key: 'L',
+                },
+                update: {
+                    // 更新当前浏览位置(double-click)
+                    enable: true,
+                    CtrlCmd: false,
+                    WinCtrl: false,
+                    Shift: false,
+                    Alt: false,
+                    type: 'dblclick',
                 },
                 clear: {
                     // 移除浏览位置(Ctrl + Shift + Alt + L)

@@ -1,9 +1,23 @@
 # 更改日志 | CHANGE LOG
 
+- 调整最近打开文档对话框样式 | Adjust the style of recently opened document dialog.
+  - Adapt: [Issue #3293 · siyuan-note/siyuan](https://github.com/siyuan-note/siyuan/issues/3293)
+- 文本输入区设置最大宽度 | Set the maximum width of text input area.
+- 调整反链面板子面板样式 | Adjust the style of sub-panel in backlink panel.
+- 调整折叠列表项样式 | Adjust the style of folded list item.
+
+## v1.6.0/2022-12-12
+
+- [v1.5.3 <=> v1.6.0](https://github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/compare/v1.5.3...v1.6.0)
 - `i10n` 支持繁体中文 `zh_CHT` | Support Traditional Chinese `zh_CHT`.
 - 调整容器块宽度 | Adjust block container width.
 - 修复页面加载时功能按钮状态未显示问题 | Fix the issue that the function button status is not displayed when the page is loaded.
 - 修复使用 <kbd>Esc</kbd> 键后光标丢失问题 | Fix the issue that the cursor is lost after using <kbd>Esc</kbd> key.
+- [#167](https://github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/issues/167) 修复记住当前浏览位置功能 | Fix the issue that the current browsing position is not remembered.
+- 修复块滚动条层级问题 | Fix the issue of the block scrollbar layer.
+- 提高块属性样式层级 | Improve the block attribute style layer.
+- 调整超级块边距 | Adjust the super block margin.
+- [#113](https://github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/issues/113) 列表看板视图 | List board view.
 
 ## v1.5.3/2022-12-05
 

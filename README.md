@@ -186,6 +186,7 @@ PS: The table is generated automatically using [All Contributors · GitHub](http
 | 视频块/音频块<br/>video blocks/audio blocks                                              | `time`                   | `ss`<br/>`ss.ms`<br/>`mm:ss`<br/>`mm:ss.ms`<br/>`hh:mm:ss`<br/>`hh:mm:ss.ms`                                                                                                                                                                                                             | 时间戳<br/>Timestamp.                                                                           |
 | 列表块 & 文档块<br/>list blocks & document blocks                                        | `type`                   | `table`<br/>`表格`<br/>(可使用空格分隔多个属性值 \| You can separate multiple attribute values with spaces)                                                                                                                                                                              | 列表渲染为表格<br/>Renders the list as a table.                                                 |
 | 列表块 & 文档块<br/>list blocks & document blocks                                        | `type`                   | `脑图`<br/>`map`<br/>`导图`<br/>`mind-map`<br/>`思维导图`<br/>(可使用空格分隔多个属性值 \| You can separate multiple attribute values with spaces)                                                                                                                                       | 列表渲染为思维导图<br/>Renders the list as a mind map.                                          |
+| 列表块 & 文档块<br/>list blocks & document blocks                                        | `type`                   | `看板`<br/>`board`<br/>(可使用空格分隔多个属性值 \| You can separate multiple attribute values with spaces)                                                                                                                                                                              | 列表渲染为看板<br/>Renders the list as a board.                                                 |
 | 表格块<br/>table blocks                                                                  | `table-width`            | `auto`<br/>`自动`<br/>(可使用空格分隔多个属性值 \| You can separate multiple attribute values with spaces)                                                                                                                                                                               | 启动表格内容自动换行<br/>Enable table content wraps.                                            |
 | 表格块<br/>table blocks                                                                  | `table-width`            | `equal`<br/>`等宽`<br/>(可使用空格分隔多个属性值 \| You can separate multiple attribute values with spaces)                                                                                                                                                                              | 启动单元格等宽<br/>Enable equal cell.                                                           |
 | 段落块<br/>paragraph blocks                                                              | `type`                   | `图标题`<br/>`表标题`<br/>`figure-title`<br/>`table-title`<br/>(使用空格分隔多个属性值 \| Separate multiple attribute values with spaces)                                                                                                                                                | 图标题/表标题自动计数<br/>Figure titles/table titles are counted automatically.                 |
@@ -430,6 +431,8 @@ Note: When using the browser to access SiYuan, this feature may be blocked by th
   Use the shortcut key <kbd>Shift + Alt + G</kbd> to turn on/off list guides (list, table list, mind map list).
 - 使用快捷键 <kbd>Shift + Alt + L</kbd> 启动/关闭记录当前浏览位置功能  
   Use the shortcut key <kbd>Shift + Alt + L</kbd> to turn on/off record the current browsing location.
+  - 开启后可以使用 <kbd>鼠标左键</kbd> 双击文档中的某个块以记住当前位置  
+    Use button <kbd>Left Mouse Button</kbd> double-click a block to record this location when turned on.
   - 开启后可以使用 <kbd>鼠标右键</kbd> 单击文档右侧的滑块, 跳转到文档上次浏览位置  
     You can click on a slider on the right side of the document to jump to where the document was last browsed using the <kbd>Right Mouse Button</kbd> when turned on.
 - 使用快捷键 <kbd>Shift + Alt + M</kbd> 启动/关闭块菜单增强功能  
@@ -597,6 +600,9 @@ Note: When using the browser to access SiYuan, this feature may be blocked by th
       - 列表渲染为思维导图 | Renders the list as a mind-map
       - 需要在列表项内纵向排版时, 需要在列表项中插入一个容器块(引述块, 超级块)  
         Please insert a container block (quote block, super block) in list item when it need to lay out vertically.
+    - `看板` / `board`: 属性值 | value
+      - 适用于列表块与文档块 | Applies to list blocks and document blocks
+      - 列表渲染为看板 | Renders the list as a board
     - `图标题` 或 `表标题` | `figure-title` or `table-title`: 属性值 | value
       - 适用于段落块 | Applies to paragraph blocks
       - 图标题/表标题自动计数 | Figure titles/table titles are counted automatically
