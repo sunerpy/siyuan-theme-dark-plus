@@ -839,7 +839,7 @@ const config = {
                     },
                 },
                 link: {
-                    enable: true, // 新窗口打开当链接/块引用
+                    enable: true, // 新窗口打开链接/块引用
                     outfocus: {
                         enable: true, // 不聚焦
                     },
@@ -848,7 +848,7 @@ const config = {
                     },
                 },
                 editor: {
-                    enable: true, // 启用新窗口打开当编辑器
+                    enable: true, // 启用新窗口打开编辑器
                     labels: {
                         openFile: {
                             zh_CN: '打开文件',
@@ -1740,29 +1740,54 @@ const config = {
                             },
                             {
                                 enable: true,
+                                type: {
+                                    NodeDocument: { enable: false },
+                                    default: { enable: true },
+                                },
+                                mode: "separator",
+                            },
+                            {
+                                enable: true,
+                                type: {
+                                    NodeDocument: { enable: false },
+                                    default: { enable: true },
+                                }, mode: "input",
+                                icon: "#iconTheme",
+                                id: 'theme-input-style',
+                                value: {
+                                    mode: 'attr',
+                                    key: 'style',
+                                },
+                                placeholder: { // 占位符
+                                    zh_CN: "块样式",
+                                    zh_CHT: "塊樣式",
+                                    other: "Block Style",
+                                },
+                                accelerator: 'style',
+                                onchange: { // 为 input 绑定 onchange 事件
+                                    enable: true,
+                                    callback: null,
+                                    tasks: [
+                                        {
+                                            type: 'save-input-value',
+                                            params: {
+                                                mode: 'attr',
+                                                key: 'style',
+                                            },
+                                        },
+                                    ],
+                                },
+                            },
+                            {
+                                enable: true,
                                 type: null,
                                 mode: "separator",
                             },
                             {
                                 enable: true,
                                 type: {
-                                    NodeAudio: { enable: true },
-                                    NodeBlockQueryEmbed: { enable: true },
-                                    NodeBlockquote: { enable: true },
-                                    NodeCodeBlock: { enable: true },
                                     NodeDocument: { enable: false },
-                                    NodeHTMLBlock: { enable: true },
-                                    NodeHeading: { enable: true },
-                                    NodeIFrame: { enable: true },
-                                    NodeList: { enable: true },
-                                    NodeListItem: { enable: true },
-                                    NodeMathBlock: { enable: true },
-                                    NodeParagraph: { enable: true },
-                                    NodeSuperBlock: { enable: true },
-                                    NodeTable: { enable: true },
-                                    NodeThematicBreak: { enable: true },
-                                    NodeVideo: { enable: true },
-                                    NodeWidget: { enable: true },
+                                    default: { enable: true },
                                 },
                                 mode: "button",
                                 icon: "#iconUpload",
@@ -1791,23 +1816,8 @@ const config = {
                             {
                                 enable: true,
                                 type: {
-                                    NodeAudio: { enable: true },
-                                    NodeBlockQueryEmbed: { enable: true },
-                                    NodeBlockquote: { enable: true },
-                                    NodeCodeBlock: { enable: true },
                                     NodeDocument: { enable: false },
-                                    NodeHTMLBlock: { enable: true },
-                                    NodeHeading: { enable: true },
-                                    NodeIFrame: { enable: true },
-                                    NodeList: { enable: true },
-                                    NodeListItem: { enable: true },
-                                    NodeMathBlock: { enable: true },
-                                    NodeParagraph: { enable: true },
-                                    NodeSuperBlock: { enable: true },
-                                    NodeTable: { enable: true },
-                                    NodeThematicBreak: { enable: true },
-                                    NodeVideo: { enable: true },
-                                    NodeWidget: { enable: true },
+                                    default: { enable: true },
                                 },
                                 mode: "button",
                                 icon: "#iconDownload",
@@ -2159,7 +2169,7 @@ const config = {
                                     zh_CHT: "清除瀏覽位置記錄",
                                     other: "Clear Browsing Location History",
                                 },
-                                accelerator: "location: null",
+                                accelerator: "",
                                 click: {
                                     enable: true,
                                     callback: null,

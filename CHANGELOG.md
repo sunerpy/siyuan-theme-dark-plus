@@ -1,10 +1,30 @@
 # 更改日志 | CHANGE LOG
 
+- 调整悬浮菜单捷径样式 | Adjust the style of the shortcut in the floating menu.
+- 调整搜索路径样式 | Adjust the style of the search path.
+- 优化历史记录对比功能 | Optimize the comparison function of the history record.
+- 新增 Monaco Editor 快照查看与差异对比功能 | Added Monaco Editor snapshot viewing and compare with difference function.
+- 调整选中的菜单项样式 | Adjust the style of the selected menu item.
+- 调整搜索路径移除按钮样式 | Adjust the style of remove button of search path.
+- 调整自定义悬浮工具栏层级 | Adjust the level of the custom floating toolbar.
+- 支持闪卡挖空样式 | Support the hollow style of the flash card.
+  - Adapt: [Issue #6710 · siyuan-note/siyuan](https://github.com/siyuan-note/siyuan/issues/6710)
+- 设置闪卡复习对话框样式 | Set the style of the flash card review dialog.
+- 使用 `Function` 替代 `eval` 方法 | Use `Function` instead of `eval` method.
+- Monaco 编辑器支持将 ECharts 图表块识别为 `json`/`javascript` 语言 | Monaco Editor supports identifying ECharts chart blocks as `json`/`javascript` language.
+
+## v1.6.1/2022-12-20
+
+- [v1.6.0 <=> v1.6.1](https://github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/compare/v1.6.0...v1.6.1)
 - 调整最近打开文档对话框样式 | Adjust the style of recently opened document dialog.
   - Adapt: [Issue #3293 · siyuan-note/siyuan](https://github.com/siyuan-note/siyuan/issues/3293)
 - 文本输入区设置最大宽度 | Set the maximum width of text input area.
 - 调整反链面板子面板样式 | Adjust the style of sub-panel in backlink panel.
 - 调整折叠列表项样式 | Adjust the style of folded list item.
+- 调整搜索路径移除按钮样式 | Adjust the style of remove button of search path.
+- 显示表格中合并的单元格轮廓 | Show the outline of merged cells in table.
+- 为块菜单扩展添加块样式输入框 | Add block style input box for block menu extension.
+- 块菜单扩展块类型过滤器支持默认配置 | Block type filter of block menu extension supports default configuration.
 
 ## v1.6.0/2022-12-12
 

@@ -8,6 +8,7 @@ import {
     copyToClipboard,
     removeOuterIAL,
     compareVersion,
+    preProcessBlockDOM,
 } from './js/utils.js';
 import {
     version,
@@ -17,6 +18,7 @@ import {
     updateBlock,
     getBlockKramdown,
     getDocHistoryContent,
+    openRepoSnapshotDoc,
     getBlockDomByID,
     getDoc,
     getFile,
@@ -68,7 +70,7 @@ async function init(params) {
                 case 'markdown': // 查看 markdown
                     params.value.original = b.data.isLargeDoc
                         ? b.data.content
-                        : window.editor.lute.BlockDOM2StdMd(b.data.content);
+                        : window.editor.lute.BlockDOM2StdMd(preProcessBlockDOM(b.data.content));
                     r = await getDoc(params.id);
                     if (r && r.code === 0) {
                         params.value.modified = window.editor.lute.BlockDOM2StdMd(r.data.content);
@@ -81,18 +83,21 @@ async function init(params) {
                 case 'kramdown': // 对比历史与当前 kramdown
                     params.value.original = b.data.isLargeDoc
                         ? b.data.content
-                        : window.editor.lute.BlockDOM2Md(b.data.content);
+                        : window.editor.lute.BlockDOM2Md(preProcessBlockDOM(b.data.content));
 
-                    r = await getBlockKramdown(params.id);
+                    // r = await getBlockKramdown(params.id);
                     // r = await getBlockDomByID(params.id);
-                    // r = await getDoc(params.id);
+                    r = await getDoc(params.id);
+
                     if (r && r.code === 0) {
                         // REF: [使用 API `/api/block/getBlockKramdown` 查询时返回 IAL · Issue #6670 · siyuan-note/siyuan](https://github.com/siyuan-note/siyuan/issues/6670)
-                        params.value.modified = compareVersion(params.version, '2.5.1') >= 0
-                            ? removeOuterIAL(r.data.kramdown)
-                            : r.data.kramdown;
+                        // params.value.modified = compareVersion(params.version, '2.5.1') >= 0
+                        //     ? removeOuterIAL(r.data.kramdown)
+                        //     : r.data.kramdown;
+
                         // params.value.modified = window.editor.lute.BlockDOM2Md(r.data.blocks[0].content);
-                        // params.value.modified = window.editor.lute.BlockDOM2Md(r.data.content);
+
+                        params.value.modified = window.editor.lute.BlockDOM2Md(r.data.content);
                     }
                     else {
                         params.mode = 'none';
@@ -115,6 +120,85 @@ async function init(params) {
                 config.editor.link.siyuan(params.id),
             ); // 设置面包屑
             break;
+
+        case 'snapshot': // 快照文档
+            // 获取文档1内容
+            r = await openRepoSnapshotDoc(params.id);
+            if (r && r.code === 0) {
+                b = r;
+            }
+            else {
+                // 没有查询到完整文档路径
+                params.mode = 'none';
+                return;
+            }
+
+            // 获取文档路径
+            r = await getFullHPathByID(b.data.id);
+            if (r && r.code === 0) {
+                n = r;
+            }
+            else {
+                // 没有查询到完整文档路径
+                n = null;
+            }
+
+            var handler;
+            switch (params.type) {
+                case 'markdown': // 查看 markdown
+                    handler = window.editor.lute.BlockDOM2StdMd;
+                    break;
+
+                case 'kramdown': // 查看 kramdown
+                    handler = window.editor.lute.BlockDOM2Md;
+                    break;
+            }
+
+            params.diff = params.id2 !== null;
+            if (params.diff) { // 两篇文档对比
+                params.value = {
+                    original: null,
+                    modified: null,
+                }
+
+                params.value.original = b.data.isLargeDoc
+                    ? b.data.content
+                    : handler(preProcessBlockDOM(b.data.content));
+
+                // 获取文档2内容
+                r = await openRepoSnapshotDoc(params.id2);
+                if (r && r.code === 0) {
+                    b = r;
+                }
+                else {
+                    // 没有查询到完整文档路径
+                    params.mode = 'none';
+                    return;
+                }
+
+                params.value.modified = b.data.isLargeDoc
+                    ? b.data.content
+                    : handler(preProcessBlockDOM(b.data.content));
+            }
+            else { // 单篇文档
+                params.value = b.data.isLargeDoc
+                    ? b.data.content
+                    : handler(preProcessBlockDOM(b.data.content));
+            }
+
+            params.language = 'markdown';
+            params.tabSize = 2;
+
+            params.breadcrumb.set(
+                `${config.editor.mark.snapshot}${config.editor.MAP.LABELS.mode[params.mode][params.lang] || config.editor.MAP.LABELS.mode[params.mode].default}`,
+                `${config.editor.mark.snapshotpath}${n?.data.replaceAll('/', config.editor.mark.pathseparate) ?? params.id}`,
+                config.editor.link.siyuan(b.data.id),
+                n?.data ?? params.rootID,
+                config.editor.link.siyuan(b.data.id),
+                config.editor.link.siyuan(b.data.rootID),
+            ); // 设置面包屑
+            break;
+
         case 'inbox': // 收集箱
             r = await getFile(params.path); // 获取文件内容
             if (r) {
@@ -574,7 +658,16 @@ window.onload = () => {
                 status: document.getElementById('status'),
                 type: document.getElementById('type'),
                 crumb: document.getElementById('crumb'),
-                set: (typeText, hpathText, typeTitle, hpathTitle, blockHref, docHref) => {
+                /**
+                 * 设置面包屑
+                 * @params {string} typeText: (块)类型
+                 * @params {string} hpathText: 路径
+                 * @params {string} typeTitle: (块)类型标题
+                 * @params {string} hpathTitle: 路径标题
+                 * @params {string} blockHref: (块)类型链接
+                 * @params {string} docHref: 路径链接
+                 */
+                set: (typeText, hpathText, typeTitle = null, hpathTitle = null, blockHref = null, docHref = null) => {
                     if (typeText) {
                         typeText = typeText.replaceAll(/(\n|\r)+/g, ' ')
                         window.editor.params.breadcrumb.type.innerText = typeText;
@@ -596,6 +689,8 @@ window.onload = () => {
                 },
             },
             id: window.editor.url.searchParams.get('id')
+                || null, // 块 ID
+            id2: window.editor.url.searchParams.get('id2')
                 || null, // 块 ID
             url: decodeURI(window.editor.url.searchParams.get('url') || '')
                 || null, // 文件资源定位
@@ -674,9 +769,23 @@ window.onload = () => {
             require(['vs/editor/editor.main'], async () => {
                 window.editor.completion = await import('./js/completion.js');
 
-                const language = config.editor.MAP.LANGUAGES[window.editor.params.language.toLowerCase()]
-                    || window.editor.params.language
-                    || 'plaintext';
+                let language;
+                switch (window.editor.params.language.toLowerCase()) {
+                    case 'echarts': // ECharts 图表支持 JSON/JavaScript
+                        try {
+                            JSON.parse(window.editor.params.value);
+                            language = 'json';
+                        }
+                        catch (error) {
+                            language = 'javascript';
+                        }
+                        break;
+                    default:
+                        language = config.editor.MAP.LANGUAGES[window.editor.params.language.toLowerCase()]
+                            || window.editor.params.language
+                            || 'plaintext';
+                        break;
+                }
                 window.editor.picker.value = language;
 
                 // 编辑器配置
@@ -825,6 +934,7 @@ window.onload = () => {
                                     break;
                             }
                             break;
+                        case 'snapshot':
                         case 'none':
                         default:
                             break;
@@ -895,13 +1005,14 @@ window.onload = () => {
                     }, // 点击后执行的操作
                 });
                 if (!( // 不能保存的情况
-                    window.editor.params.type === 'markdown' // markdown 类型
-                    && ( // 容器块
-                        window.editor.params.mode === 'doc' // 文档块
-                        || window.editor.params.mode === 'history' // 历史文档
-                        || window.editor.params.mode === 'item' // 列表项块
-                        || window.editor.params.mode === 'container' // 其他容器块
-                    )
+                    window.editor.params.mode === 'snapshot' // 文档快照
+                    || (window.editor.params.type === 'markdown' // markdown 类型
+                        && ( // 且为容器块
+                            window.editor.params.mode === 'doc' // 文档块
+                            || window.editor.params.mode === 'history' // 历史文档
+                            || window.editor.params.mode === 'item' // 列表项块
+                            || window.editor.params.mode === 'container' // 其他容器块
+                        ))
                 )) { // markdown 类型的容器块无法保存
                     window.editor.editor.addAction({ // 保存
                         id: '18730D32-5451-4102-B299-BE281BA929B9', // 菜单项 id
