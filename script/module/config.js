@@ -57,7 +57,6 @@ const config = {
         },
         tooldock: { // 悬浮栏
             id: 'custom-tooldock', // 悬浮栏 ID
-            key: 'THEME-custom-tooldock', // 保存在 localStorage 的键名
             classes: [ // 样式类名
                 'float-tooldock',
             ],
@@ -696,12 +695,12 @@ const config = {
                 webPreferences: {
                     nodeIntegration: true, // 是否启用 Node.js 内置模块
                     nativeWindowOpen: true,
-                    // webviewTag: true,
+                    webviewTag: true, // 是否启用 webview 标签 (类似于 iframe 标签)
                     webSecurity: false, // 是否启用 Web 安全
-                    // contextIsolation: false,
-                    // defaultFontFamily: { // 默认字体
-                    //     standard: window.siyuan.config.editor.fontFamily,
-                    // },
+                    contextIsolation: false, // 上下文隔离, 设置 false 之后可以使用 require
+                    defaultFontFamily: { // 默认字体
+                        standard: window.siyuan.config.editor.fontFamily,
+                    },
                 },
             },
             menu: {
@@ -3092,6 +3091,16 @@ const custom = {
             [config.theme.typewriter.switch.toolbar.id]: { default: false }, // 打字机模式
             [config.theme.dock.fold.toolbar.id]: { default: false }, // 专注模式
             [config.theme.readonly.toolbar.id]: { default: false }, // 只读模式
+        },
+        tooldock: {
+            position: {
+                left: "",
+                right: "",
+                top: "",
+                bottom: "",
+                width: "",
+                height: "",
+            }, // 悬浮工具栏位置
         },
         location: {},
         dock: {},

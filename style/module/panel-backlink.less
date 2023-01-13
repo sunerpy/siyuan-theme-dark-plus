@@ -7,7 +7,12 @@
     &:has(>.sy__backlink) {
         /* 反链面板 */
         background-color: transparent;
+
+        >.file-tree:not(.sy__backlink) {
+            background-color: var(--custom-editor-background-color);
+        }
     }
+
 
     .sy__backlink {
         >div {
@@ -42,7 +47,7 @@
             .b3-list.b3-list--background {
                 .b3-list-item {
                     /* 反链与提及面板项 */
-                    outline-color: var(--b3-theme-on-background);
+                    outline-color: var(--b3-theme-on-surface);
                 }
             }
         }

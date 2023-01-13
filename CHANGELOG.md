@@ -1,5 +1,31 @@
 # 更改日志 | CHANGE LOG
 
+- 修复部分面板背景颜色样式问题 | Fixed the issue of some panel background color style.
+- 调整反链面板的面包屑样式 | Adjust the breadcrumb style of the backlink panel.
+
+## v1.6.4/2023-01-10
+
+- [v1.6.3 <=> v1.6.4](https://github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/compare/v1.6.3...v1.6.4)
+- 新增电话 URL Scheme 超链接 `tel://` 图标 | Added the URL Scheme link `tel://` icon of Telephone.
+- 使用 `Less` 重构 `panel-inbox.css` | Refactored `panel-inbox.css` with `Less`.
+- 使用 `response.ok` 作为 `fetch` 请求成功的判断条件 | Use `response.ok` as a criterion for the success of the `fetch` request.
+- 调整搜索结果中匹配的关键字样式 | Adjust the style of matching keywords in search results.
+- 将悬浮工具栏位置状态保存在 `custom.json` 中 | Save the floating toolbar position status in `custom.json`.
+- 设置字体选择菜单中字体颜色样式 | Set the font color style in the font selection menu.
+
+## v1.6.3/2023-01-03
+
+- [v1.6.2 <=> v1.6.3](https://github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/compare/v1.6.2...v1.6.3)
+- 支持在子窗口打开子窗口 | Support open sub window in sub window.
+- 修复在子窗口打开的 Monaco 编辑器无法加载的问题 | Fixed the issue of Monaco editor can't load in sub window.
+- 调整自定义悬浮工具栏层级 | Adjust the level of the custom floating toolbar.
+- 调整折叠标题块样式 | Adjust the style of the folded title block.
+- 使用 `unset` 属性值替代 `initial` 属性值 | Replace the `initial` property value with the `unset` property value.
+- 完善闪卡挖空样式 | Improve the hollow style of the flash card.
+
+## v1.6.2/2022-12-27
+
+- [v1.6.1 <=> v1.6.2](https://github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/compare/v1.6.1...v1.6.2)
 - 调整悬浮菜单捷径样式 | Adjust the style of the shortcut in the floating menu.
 - 调整搜索路径样式 | Adjust the style of the search path.
 - 优化历史记录对比功能 | Optimize the comparison function of the history record.

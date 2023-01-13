@@ -132,6 +132,27 @@
     }
 }
 
+// 编辑菜单
+.protyle-util {
+
+    // 字体样式菜单
+    .protyle-font {
+
+        // 颜色
+        .b3-color__square {
+            &[data-type=color] {
+                /* 字体颜色 */
+                border-radius: 100%;
+            }
+
+            &[data-type=backgroundColor] {
+                /* 背景颜色 */
+                border-radius: unset;
+            }
+        }
+    }
+}
+
 // 搜索结果列表
 .b3-list.b3-list--background {
     .single-level-list();
@@ -268,6 +289,7 @@
     &:not(ul),
     &.b3-tab-bar,
     .sy__backlink &,
+    .b3-dialog__container &,
     #historyContainer & {
         // >.b3-list-item {
         //     &:extend(#searchPanel>.b3-list-item all);
@@ -312,7 +334,7 @@
 // 块级反链列表定位关键词
 .protyle-wysiwyg [data-node-id] span.def--mark,
 // 搜索结果渲染匹配关键词
-.protyle-wysiwyg [data-node-id] span[data-type="search-mark"] {
+.protyle-wysiwyg [data-node-id] span[data-type~=search-mark] {
     margin: 0 0.25em;
     border: 0;
     padding: 0 0.125em;
