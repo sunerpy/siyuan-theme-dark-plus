@@ -1,8 +1,42 @@
 # 更改日志 | CHANGE LOG
 
+## v1.7.0/2023-02-08
+
+- [v1.6.6 <=> v1.7.0](https://github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/compare/v1.6.6...v1.7.0)
+- 重构主题配色加载方案 | Refactored the theme color scheme loading scheme.
+- 调整标题栏按钮样式 | Adjust the style of the title bar button.
+- 重构响应状态判断方案 | Refactored the response status judgment scheme.
+- 添加 CSS 变量 `--custom-popover-menu-textarea-width` | Add CSS variable `--custom-popover-menu-textarea-width`.
+- 调整表格样式 | Adjust the style of the table.
+- 修复浮窗中块滚动条样式异常问题 | Fixed the issue of abnormal style of block scrollbar in the floating window.
+- 修复行内备注功能异常 | Fixed the abnormality of the inline note function.
+- 调整主题配色加载方案 | Adjust the theme color scheme loading scheme.
+  - Adapt: [Issue #7259 · siyuan-note/siyuan](https://github.com/siyuan-note/siyuan/issues/7259)
+
+## v1.6.6/2023-01-30
+
+- [v1.6.5 <=> v1.6.6](https://github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/compare/v1.6.5...v1.6.6)
+- 调整工具栏已激活按钮的样式 | Adjust the style of the activated button in the toolbar.
+- 调整工具栏按钮宽度 | Adjust the width of the toolbar button.
+- 调整窗口标题栏应用图标宽度 | Adjust the width of the app icon for the window title bar.
+- 调整 <kbd>Ctrl + 鼠标滚轮</kbd> 缩放功能 | Adjust the function of zoom using <kbd>Ctrl + Mouse-Wheel</kbd>.
+- 兼容新窗口的样式 | Compatible with the style of the new window.
+  - Adapt: [Issue #2955 · siyuan-note/siyuan](https://github.com/siyuan-note/siyuan/issues/2955)
+- 为未激活的窗口标题栏设置颜色 | Set the color for the title bar of the inactive window.
+
+## v1.6.5/2023-01-18
+
+- [v1.6.4 <=> v1.6.5](https://github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/compare/v1.6.4...v1.6.5)
 - 修复部分面板背景颜色样式问题 | Fixed the issue of some panel background color style.
 - 调整反链面板的面包屑样式 | Adjust the breadcrumb style of the backlink panel.
 - 调整超级块块属性标识样式 | Adjust the style of the block attribute identifier of the super block.
+- [#173](https://github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/issues/173) 添加行内代码文本颜色 CSS 变量 `--custom-span-code-color` | Add inline code text color CSS variable `--custom-span-code-color`.
+- 调整桌面端界面左上角应用图标样式 | Adjuct the style of the apply icon in the upper-left corner of the desktop interface.
+- 思源 `2.7.0+` 版本禁用使用 URL 参数跳转指定块功能 | Siyuan `2.7.0+` version disables the function of jumping to the specified block with URL parameters.
+  - Adapt: [Pull Request #7086 · siyuan-note/siyuan](https://github.com/siyuan-note/siyuan/pull/7086)
+- 完整显示文本内容功能支持搜索结果 | The full display of text content function supports search results.
+- 调整面包屑右侧按钮样式 | Adjust the style of the button on the right side of the breadcrumb.
+- 调整移动端底部控件栏的层级 | Adjust the level of the bottom control bar of the mobile terminal.
 
 ## v1.6.4/2023-01-10
 

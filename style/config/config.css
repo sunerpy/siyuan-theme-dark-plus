@@ -190,6 +190,8 @@
   --custom-span-tag-icon: url(/appearance/themes/Dark+/icon/tag.svg);
   /* 块引用波浪线动画图标 | The icon of wavy line animation */
   --custom-span-ref-animation-icon: url(/appearance/themes/Dark+/icon/wavy-line.svg);
+  /* 行内代码文本颜色 | Inline code text color */
+  --custom-span-code-color: var(--b3-theme-on-background);
   /* 图片反色滤波器 | Image inverted filter */
   --custom-image-filter-invert: invert(100%);
   /* 背景图片滤波器 | Background image filter */
@@ -326,7 +328,7 @@
   /* 表格块单元格边框颜色 | The color of table block cell borders */
   --custom-block-table-cell-border-color: var(--b3-border-color);
   /* 表头 | thead */
-  --custom-block-table-thead-background-color: var(--custom-components-light);
+  --custom-block-table-thead-background-color: var(--custom-components);
   /* 奇数行 | odd line */
   --custom-block-table-odd-background-color: var(--custom-transparent-lighter);
   /* 偶数行 | even line */
@@ -359,9 +361,10 @@
   /* 弹出菜单轮廓颜色 | The outline color of the popover menu */
   --custom-popover-menu-outline-color: var(--b3-scroll-color);
   --custom-popover-menu-focus-outline-color: var(--b3-theme-on-surface-light);
-  /* 弹出菜单输入框最小宽度 | The min width of the popover menu input */
-  /* --custom-popover-menu-input-min-width: 50vw; */
-  --custom-popover-menu-input-min-width: none;
+  /* 弹出菜单输入框宽度 | The width of the popover menu input */
+  /* --custom-popover-menu-input-width: 50vw; */
+  --custom-popover-menu-input-width: none;
+  --custom-popover-menu-textarea-width: none;
   /* 模板预览 | Template preview */
   /* 模板预览窗口宽度 | The width of the template preview window */
   /* --custom-template-preview-width: 520px; */
@@ -502,6 +505,11 @@
   --custom-scroll-max-height: 50vh;
   /* 表格单元格等宽启用时单元格宽度 | Table cell width when cell equal function is enabled */
   --custom-table-cell-equal-width: 256px;
+  /* 未激活的窗口 */
+  /* 窗口标题栏背景颜色 | The window title bar background color */
+  --custom-window-inactive-title-bar-background-color: var(--b3-theme-background);
+  /* 窗口标题栏颜色 | The window title bar color */
+  --custom-window-inactive-title-bar-color: var(--b3-theme-on-surface-light);
 }
 @media (orientation: landscape) {
   :root {

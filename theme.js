@@ -208,8 +208,10 @@ window.theme.orientation = () => {
  * @return {string} 'app' 或 'desktop' 或 'mobile'
  */
 window.theme.clientMode = (() => {
-    let url = new URL(window.location.href);
+    const url = new URL(window.location.href);
     switch (true) {
+        case url.pathname.startsWith('/stage/build/app/window.html'):
+            return 'window';
         case url.pathname.startsWith('/stage/build/app'):
             return 'app';
         case url.pathname.startsWith('/stage/build/desktop'):
@@ -252,26 +254,36 @@ window.theme.lute = window.Lute.New();
  * @params {string} customDarkStyle 深色主题自定义配置文件路径
  */
 window.theme.changeThemeMode = function (
-    lightStyle,
-    darkStyle,
     customLightStyle,
     customDarkStyle,
 ) {
-    let href_color = null;
     let href_custom = null;
     switch (window.theme.themeMode) {
         case 'light':
-            href_color = lightStyle;
             href_custom = customLightStyle;
+            document.documentElement.dataset.themeMode = 'light';
             break;
         case 'dark':
         default:
-            href_color = darkStyle;
+            // 兼容思源 v2.7.2- 版本
+            document.documentElement.dataset.themeMode = 'dark';
             href_custom = customDarkStyle;
             break;
     }
+
+    // 兼容思源 v2.7.2- 版本
+    if (!document.documentElement.dataset.themeMode) {
+        switch (window.theme.themeMode) {
+            case 'light':
+            default:
+                document.documentElement.dataset.themeMode = 'light';
+                break;
+            case 'dark':
+                document.documentElement.dataset.themeMode = 'dark';
+                break;
+        }
+    }
     window.theme.updateStyle(window.theme.ID_CUSTOM_STYLE, href_custom);
-    window.theme.updateStyle(window.theme.ID_COLOR_STYLE, href_color);
 }
 
 /* 禁用缓存(无效) */
@@ -291,11 +303,18 @@ window.theme.changeThemeMode = function (
 /* 根据当前主题模式加载样式配置文件 */
 if (window.siyuan.config.appearance[window.siyuan.config.appearance.mode ? "themeDark" : "themeLight"] === "Dark+") {
     window.theme.changeThemeMode(
-        `/appearance/themes/Dark+/style/color/light.css`,
-        `/appearance/themes/Dark+/style/color/dark.css`,
         `/widgets/custom-light.css`,
         `/widgets/custom-dark.css`,
     );
+}
+
+/* 调整窗口控件位置 */
+if (window.theme.clientMode === "window") {
+    const toolbar__window = document.querySelector("body > .toolbar__window");
+    const layouts = document.getElementById("layouts")?.parentElement;
+    if (toolbar__window && layouts) {
+        document.body.insertBefore(toolbar__window, layouts);
+    }
 }
 
 /* 加载 HTML 块中使用的小工具 */

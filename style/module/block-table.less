@@ -10,7 +10,9 @@
 
         th,
         td {
+            /* 单元格 */
             border-color: var(--custom-block-table-cell-border-color);
+            background-color: transparent !important;
         }
 
         thead {
@@ -32,7 +34,7 @@
 
                 &:nth-child(2n) {
                     /* 偶数行 */
-                    background-color: var(--custom-block-table-odd-background-color);
+                    background-color: var(--custom-block-table-even-background-color);
                 }
             }
         }
