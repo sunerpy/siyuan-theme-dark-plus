@@ -84,6 +84,11 @@
         background-color: transparent !important;
     }
 
+    // 设置对话框
+    .config__tab-container {
+        background-color: transparent;
+    }
+
     .fn__flex-column {
         border-radius: inherit;
 
@@ -222,12 +227,11 @@
         // border-left: 2px solid var(--b3-border-color);
         background-color: transparent;
     }
+}
 
-    .b3-dialog__scrim {
-        /* 对话框遮罩 */
-        background-color: var(--custom-scrim-background-color);
-    }
-
+.b3-dialog__scrim {
+    /* 对话框遮罩 */
+    background-color: var(--custom-scrim-background-color) !important;
 }
 
 /* 闪卡显示容器 */
@@ -246,7 +250,7 @@
  */
 /* 搜索对话框尺寸 */
 body {
-    >.b3-dialog--open[data-key] {
+    >.b3-dialog--open:has(#searchInput) {
         >.b3-dialog {
             >.b3-dialog__container {
 
@@ -269,6 +273,77 @@ body {
         }
     }
 }
+
+/* 制卡(添加到卡包)对话框 */
+.b3-dialog--open[data-key=makeCard] {
+
+    .b3-dialog__container {
+
+        // 卡包列表
+        .b3-list.b3-list--background {
+
+            // 卡包
+            >.b3-list-item {
+
+                // 卡包信息
+                >.b3-list-item__meta {
+                    margin-left: 8px;
+                    font-size: unset;
+                }
+
+                // 按钮控件
+                >.b3-list-item__action {
+                    height: 24px;
+                }
+            }
+        }
+    }
+}
+
+/* 闪卡复习对话框 */
+.b3-dialog--open:has(.card__block) {
+
+    .b3-dialog__container {
+
+        // 卡片内容
+        .card__block.protyle {
+            border-bottom: 2px solid var(--b3-border-color);
+        }
+
+        // 无复习内容
+        .card__empty {
+            background-color: unset;
+        }
+
+        // 按钮栏
+        .card__action {
+            >div {
+                /* 复习按钮容器 */
+                text-align: center;
+
+                .b3-button {
+                    /* 复习按钮 */
+                    padding: 0;
+                    display: inline-flex;
+
+                    >div {
+                        /* 按钮 emoji */
+                        font-size: 1.5em;
+                        line-height: 2em;
+                        margin: 0;
+                    }
+                }
+            }
+
+            >.b3-button--cancel {
+                /* 撤销复习按钮 */
+                opacity: unset;
+                outline: 1px solid var(--b3-theme-primary);
+            }
+        }
+    }
+}
+
 
 /* 窗口较宽时并排显示搜索结果 */
 /* @deprecated: [搜索界面支持左右布局 · Issue #6744 · siyuan-note/siyuan · GitHub](https://github.com/siyuan-note/siyuan/issues/6744) */

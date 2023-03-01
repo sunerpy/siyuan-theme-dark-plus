@@ -649,12 +649,12 @@ Note: When using the browser to access SiYuan, this feature may be blocked by th
 
 ## 自定义配置 | CUSTOM CONFIG
 
-| 自定义配置文件 \| Custom configuration files          | 说明 \| Product                                                                                                                                                                                                                                                |
-| :---------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `<工作空间(workspace)>/data/widgets/custom.js`        | 主题功能配置选项, 覆盖 `<工作空间>/conf/appearance/themes/Dark+/style/module/config.js` 中对应的值<br/>Theme feature configuration, which overwrites the corresponding value in file `<workspace>/conf/appearance/themes/Dark+/style/module/config.js`         |
-| `<工作空间(workspace)>/data/widgets/custom.css`       | 主题共用样式配置, 覆盖 `<工作空间>/conf/appearance/themes/Dark+/style/module/config.css` 中对应的值<br/>Themes share style configuration, which overwrites the corresponding value in file `<workspace>/conf/appearance/themes/Dark+/style/module/config.css`  |
-| `<工作空间(workspace)>/data/widgets/custom-light.css` | 主题浅色样式配置, 覆盖 `<工作空间>/conf/appearance/themes/Dark+/style/color/light.css` 中对应的值<br/>Theme light color style configuration, which overwrites the corresponding value in file `<workspace>/conf/appearance/themes/Dark+/style/color/light.css` |
-| `<工作空间(workspace)>/data/widgets/custom-dark.css`  | 主题深色样式配置, 覆盖 `<工作空间>/conf/appearance/themes/Dark+/style/color/dark.css` 中对应的值<br/>Theme dark color style configuration, which overwrites the corresponding value in file `<workspace>/conf/appearance/themes/Dark+/style/color/dark.css`    |
+| 自定义配置文件 \| Custom configuration files          | 说明 \| Product                                                                                                                                                                                                                                                  |
+| :---------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `<工作空间(workspace)>/data/widgets/custom.js`        | 主题功能配置选项, 覆盖 `<工作空间>/conf/appearance/themes/Dark+/style/module/config.js` 中对应的值<br/>Theme feature configuration, which overwrites the corresponding value in file `<workspace>/conf/appearance/themes/Dark+/style/module/config.js`           |
+| `<工作空间(workspace)>/data/widgets/custom.css`       | 主题共用样式配置, 覆盖 `<工作空间>/conf/appearance/themes/Dark+/style/module/config.css` 中对应的值<br/>Themes share style configuration, which overwrites the corresponding value in file `<workspace>/conf/appearance/themes/Dark+/style/module/config.css`    |
+| `<工作空间(workspace)>/data/widgets/custom-light.css` | 主题浅色样式配置, 覆盖 `<工作空间>/conf/appearance/themes/Dark+/style/config/light.css` 中对应的值<br/>Theme light color style configuration, which overwrites the corresponding value in file `<workspace>/conf/appearance/themes/Dark+/style/config/light.css` |
+| `<工作空间(workspace)>/data/widgets/custom-dark.css`  | 主题深色样式配置, 覆盖 `<工作空间>/conf/appearance/themes/Dark+/style/config/dark.css` 中对应的值<br/>Theme dark config style configuration, which overwrites the corresponding value in file `<workspace>/conf/appearance/themes/Dark+/style/color/dark.css`    |
 
 ### 配置示例 | CONFIG EXAMPLE
 
@@ -732,7 +732,8 @@ For more configuration items, see [config.js](./script/module/config.js).
  *    Custom the blank line prompt text
  */
 
-:root {
+:root[data-theme-mode=light],
+:root[data-theme-mode=dark] {
     /* 空行提示 | Blank line prompt */
     --custom-empty-p: "这里是空的 (´･-･)ﾉ㊫";
     --custom-empty-c: "这里是空的 (´･-･)ﾉ↹";
@@ -745,6 +746,24 @@ For more configuration items, see [config.js](./script/module/config.js).
 
 更多配置项请参考 [config.css](./style/module/config.css)  
 For more configuration items, see [config.css](./style/module/config.css).
+
+上述示例等效于如下代码片段:  
+The above example is equivalent to the following code snippet:
+
+```css
+:root[data-theme-mode=light][data-light-theme="Dark+"], 
+:root[data-theme-mode=dark][data-dark-theme="Dark+"] {
+    /* 空行提示 | Blank line prompt */
+    --custom-empty-p: "这里是空的 (´･-･)ﾉ㊫";
+    --custom-empty-c: "这里是空的 (´･-･)ﾉ↹";
+    --custom-empty-t: "这里是空的 (´･-･)ﾉ☑";
+    --custom-empty-u: "这里是空的 (´･-･)ﾉ◉";
+    --custom-empty-o: "这里是空的 (´･-･)ﾉ①";
+}
+```
+
+代码片段可以在思源 <kbd>设置 > 外观 > 代码片段 > CSS</kbd> 中设置  
+Code snippets can be set in Siyuan <kbd>Settings > Appearance > Code Snippet > CSS</kbd>.
 
 #### custom-light.css
 
@@ -764,7 +783,7 @@ For more configuration items, see [config.css](./style/module/config.css).
  *            <workspace>/data/widgets/background-light-dialog.png
  */
 
-:root {
+:root[data-theme-mode=light] {
     /* 浅色主题默认背景图片 | default background image for light color theme */
     --custom-background-image: url("/widgets/background-light.png");
 
@@ -774,8 +793,24 @@ For more configuration items, see [config.css](./style/module/config.css).
 
 ```
 
-更多配置项请参考 [config.css](./style/module/config.css) 与 [light.css](./style/color/light.css)  
-For more configuration items, see [config.css](./style/module/config.css) and [light.css](./style/color/light.css).
+更多配置项请参考 [config.css](./style/module/config.css) 与 [light.css](./style/config/light.css)  
+For more configuration items, see [config.css](./style/module/config.css) and [light.css](./style/config/light.css).
+
+上述示例等效于如下代码片段:  
+The above example is equivalent to the following code snippet:
+
+```css
+:root[data-theme-mode=light][data-light-theme="Dark+"] {
+    /* 浅色主题默认背景图片 | default background image for light color theme */
+    --custom-background-image: url("/widgets/background-light.png");
+
+    /* 浅色主题默认对话框背景图片 | default dialog background image for light color theme */
+    --custom-background-image-dialog: url("/widgets/background-light-dialog.png");
+}
+```
+
+代码片段可以在思源 <kbd>设置 > 外观 > 代码片段 > CSS</kbd> 中设置  
+Code snippets can be set in Siyuan <kbd>Settings > Appearance > Code Snippet > CSS</kbd>.
 
 #### custom-dark.css
 
@@ -795,7 +830,7 @@ For more configuration items, see [config.css](./style/module/config.css) and [l
  *            <workspace>/data/widgets/background-dark-dialog.png
  */
 
-:root {
+:root[data-theme-mode=dark] {
     /* 深色主题默认背景图片 | default background image for dark color theme */
     --custom-background-image: url("/widgets/background-dark.png");
 
@@ -805,8 +840,24 @@ For more configuration items, see [config.css](./style/module/config.css) and [l
 
 ```
 
-更多配置项请参考 [config.css](./style/module/config.css) 与 [dark.css](./style/color/dark.css)  
-For more configuration items, see [config.css](./style/module/config.css) and [dark.css](./style/color/dark.css).
+更多配置项请参考 [config.css](./style/module/config.css) 与 [dark.css](./style/config/dark.css)  
+For more configuration items, see [config.css](./style/module/config.css) and [dark.css](./style/config/dark.css).
+
+上述示例等效于如下代码片段:  
+The above example is equivalent to the following code snippet:
+
+```css
+:root[data-theme-mode=dark][data-dark-theme="Dark+"] {
+    /* 深色主题默认背景图片 | default background image for dark color theme */
+    --custom-background-image: url("/widgets/background-dark.png");
+
+    /* 深色主题默认对话框背景图片 | default dialog background image for dark color theme */
+    --custom-background-image-dialog: url("/widgets/background-dark-dialog.png");
+}
+```
+
+代码片段可以在思源 <kbd>设置 > 外观 > 代码片段 > CSS</kbd> 中设置  
+Code snippets can be set in Siyuan <kbd>Settings > Appearance > Code Snippet > CSS</kbd>.
 
 ## 开始 | START
 

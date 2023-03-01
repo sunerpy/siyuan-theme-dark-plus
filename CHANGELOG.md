@@ -1,5 +1,31 @@
 # 更改日志 | CHANGE LOG
 
+## v1.7.2/2023-02-28
+
+- [v1.7.1 <=> v1.7.2](https://github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/compare/v1.7.1...v1.7.2)
+- 调整对话框遮罩样式 | Adjust the style of the dialog mask.
+- 添加表格头边框 | Add the table header border.
+- 调整制卡对话框卡包信息标签样式 | Adjust the card package information label style in the card making dialog.
+- 添加 CSS 变量 `--custom-popover-menu-input-min-width` 与 `--custom-popover-menu-textarea-min-width` | Add CSS variable `--custom-popover-menu-input-min-width` and `--custom-popover-menu-textarea-min-width`.
+- [#183](https://github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/issues/183) 修复无更新时间的块菜单不显示更多选项问题 | Fixed an issue where block menus without update time did not show more options.
+- 调整 `添加到卡包` 对话框大小 | Adjust the size of the `Add to Card Package` dialog.
+- 调整子标题字重 | Adjust the font weight of subtitle.
+- 调整卡包列表样式 | Adjust the style of the card package list.
+- 修复闪卡对话框尺寸问题 | Fixed the issue of the size of the flash card dialog.
+- 修复闪卡挖空样式无法显示问题 | Fixed the issue of the flash card blank style not being displayed.
+- 调整设置对话框样式 | Adjust the style of the settings dialog.
+- 调整闪卡撤销按钮样式 | Adjust the style of the flash card undo button.
+- 调整闪卡块样式 | Adjust the style of the flash card block.
+
+## v1.7.1/2023-02-15
+
+- [v1.7.0 <=> v1.7.1](https://github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/compare/v1.7.0...v1.7.1)
+- [#179](https://github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/issues/179) 修复自定义样式加载问题 | Fixed the issue of custom style loading.
+- 完善 `README.md` 文档中的自定义 CSS 配置示例 | Improved the custom CSS configuration example in the `README.md` document.
+- 调整钉住窗口控件样式 | Adjust the style of pinned window control.
+- [#180](https://github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/issues/180) 修复 `#iconExport` 图标失效问题 | Fixed the issue of `#iconExport` icon invalidation.
+- [#181](https://github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/issues/181) 修题头图 `上传` 控件失效问题 | Fixed the issue of the `Upload` control of the header image invalidation.
+
 ## v1.7.0/2023-02-08
 
 - [v1.6.6 <=> v1.7.0](https://github.com/Zuoqiu-Yingyi/siyuan-theme-dark-plus/compare/v1.6.6...v1.7.0)
